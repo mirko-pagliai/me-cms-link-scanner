@@ -1,0 +1,33 @@
+{
+    "name": "mirko-pagliai/me-cms-link-scanner",
+    "description": "Link Scanner plugin for MeCms",
+    "homepage": "https://github.com/mirko-pagliai/me-cms-link-scanner",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "authors": [{
+        "name": "Mirko Pagliai",
+        "email": "mirko.pagliai@gmail.com"
+    }],
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": ">=3.5 <4",
+        "mirko-pagliai/me-cms": ">=2.22 <2.23",
+        "mirko-pagliai/cakephp-link-scanner": "dev-master"
+    },
+    "require-dev": {
+        "cakephp/cakephp-codesniffer": "^3.0",
+        "mirko-pagliai/reflection": "^1.0",
+        "phpunit/phpunit": "^5.7|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MeCmsLinkScanner\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MeCmsLinkScanner\\Test\\": "tests",
+            "App\\": "tests/test_app/TestApp"
+        }
+    }
+}
