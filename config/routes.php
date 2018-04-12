@@ -10,11 +10,15 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-use Cake\Core\Plugin;
+use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
-//Sets the default me-cms-link-scanner name
-if (!defined('ME_CMS_LINK_SCANNER')) {
-    define('ME_CMS_LINK_SCANNER', 'MeCmsLinkScanner');
-}
+Router::defaultRouteClass('DashedRoute');
 
-Plugin::load('LinkScanner', ['bootstrap' => true]);
+Router::plugin(ME_CMS_LINK_SCANNER, ['path' => '/me-cms-link-scanner'], function (RouteBuilder $routes) {
+    //Admin routes
+    $routes->prefix(ADMIN_PREFIX, function (RouteBuilder $routes) {
+        //All admin routes
+        $routes->fallbacks('DashedRoute');
+    });
+});
