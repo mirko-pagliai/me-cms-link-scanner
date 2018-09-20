@@ -11,24 +11,53 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 $this->extend(ME_CMS . './Admin/Common/view');
-$this->assign('title', __d('me_cms', '{0} log {1}', LINK_SCANNER, $filename));
+$this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $filename));
 ?>
+
+<p class="mb-0">
+    <strong><?= __d('me_cms_link_scanner', 'Full base url') ?>:</strong> <?= $fullBaseUrl ?>
+</p>
+<p class="mb-0">
+    <strong><?= __d('me_cms_link_scanner', 'End time') ?>:</strong> <?= $endTime ?>
+</p>
+<p>
+    <strong><?= __d('me_cms_link_scanner', 'Elapsed time') ?>:</strong> <?= $elapsedTime ?>
+</p>
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><?= __d('me_cms', 'Url') ?></th>
-            <th><?= __d('me_cms', 'Type') ?></th>
-            <th class="text-center"><?= __d('me_cms', 'Code') ?></th>
-            <th class="text-center text-nowrap"><?= __d('me_cms', 'Is external?') ?></th>
+            <th><?= __d('me_cms_link_scanner', 'Url') ?></th>
+            <th><?= __d('me_cms_link_scanner', 'Type') ?></th>
+            <th class="text-center"><?= __d('me_cms_link_scanner', 'Code') ?></th>
+            <th class="text-center text-nowrap"><?= __d('me_cms_link_scanner', 'External?') ?></th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($results as $row): ?>
         <tr>
-            <td><code><?= $row->url ?></code></td>
+            <td>
+                <code><?= $row->url ?></code>
+                <?php if ($row->referer): ?>
+                    <div><small><?= __d('me_cms_link_scanner', 'Referer: {0}', $row->referer) ?></small></div>
+                <?php endif; ?>
+                <?php
+                    $actions = [];
+                    $actions[] = $this->Html->link(I18N_OPEN, $row->getOriginal('url'), [
+                        'icon' => 'external-link-alt',
+                        'target' => '_blank',
+                    ]);
+                    echo $this->Html->ul($actions, ['class' => 'actions']);
+                ?>
+            </td>
             <td class="text-nowrap"><code><?= $row->type ?></code></td>
-            <td class="text-center"><?= $row->code ?></td>
+            <td class="text-center">
+                <?php if ($row->isOk()) : ?>
+                    <span class="badge badge-success"><?= $row->code ?></span>
+                <?php else : ?>
+                    <span class="badge badge-warning"><?= $row->code ?></span>
+                <?php endif; ?>
+            </td>
             <td class="text-center"><?= $row->external ?></td>
         </tr>
         <?php endforeach; ?>

@@ -14,6 +14,7 @@ namespace MeCmsLinkScanner\Controller\Admin;
 
 use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
+use Cake\ORM\Entity;
 use Cake\Utility\Inflector;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\AppController;
@@ -43,13 +44,15 @@ class LinkScannerController extends AppController
     public function index()
     {
         $path = TMP . Inflector::underscore(LINK_SCANNER);
-        $logs = (new Folder($path))->find();
-        $logs = collection($logs)->map(function ($log) use ($path) {
-            return (object)[
+        $logs = array_map(function ($log) use ($path) {
+            $path .= DS . $log;
+
+            return new Entity([
                 'filename' => $log,
-                'filetime' => new Time(filemtime($path . DS . $log)),
-            ];
-        })->toList();
+                'filetime' => new Time(filemtime($path)),
+                'filesize' => filesize($path),
+            ]);
+        }, (new Folder($path))->find());
 
         $this->set(compact('logs'));
     }
@@ -58,19 +61,25 @@ class LinkScannerController extends AppController
      * Views a `LinkScanner` log
      * @param string $filename Filename
      * @return void
+     * @uses LinkScanner\Utility\LinkScanner::import()
      */
     public function view($filename)
     {
         $filename = urldecode($filename);
-        $LinkScanner = new LinkScanner;
-        $LinkScanner->import(TMP . Inflector::underscore(LINK_SCANNER) . DS . $filename);
+        $LinkScanner = LinkScanner::import(TMP . Inflector::underscore(LINK_SCANNER) . DS . $filename);
+        $endTime = new Time($LinkScanner->endTime);
+        $elapsedTime = $endTime->diffForHumans(new Time($LinkScanner->startTime), true);
+        $fullBaseUrl = $LinkScanner->fullBaseUrl;
 
-        $results = $LinkScanner->ResultScan->map(function ($result) {
-            $result->url = preg_replace(sprintf('/^%s/', preg_quote(getConfig('App.fullBaseUrl'), '/')), null, $result->url);
+        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrl) {
+            foreach (['url', 'referer'] as $property) {
+                $result->$property = preg_replace(sprintf('/^%s\/?/', preg_quote($fullBaseUrl, DS)), '/', $result->$property);
+            }
 
             return $result;
-        });
+        })
+        ->sortby('url', SORT_ASC, SORT_NATURAL);
 
-        $this->set(compact('filename', 'results'));
+        $this->set(compact('elapsedTime', 'endTime', 'filename', 'fullBaseUrl', 'results'));
     }
 }

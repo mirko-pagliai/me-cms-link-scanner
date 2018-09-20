@@ -11,13 +11,14 @@
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 $this->extend(ME_CMS . './Admin/Common/index');
-$this->assign('title', __d('me_cms', '{0} logs', LINK_SCANNER));
+$this->assign('title', __d('me_cms_link_scanner', '{0} logs', LINK_SCANNER));
 ?>
 
 <table class="table table-striped">
     <tr>
         <th><?= I18N_FILENAME ?></th>
-        <th class="text-center"><?= __d('me_cms', 'Last modification') ?></th>
+        <th class="min-width text-center"><?= __d('me_cms_link_scanner', 'Last modification') ?></th>
+        <th class="min-width text-center"><?= __d('me_cms_link_scanner', 'File size') ?></th>
     </tr>
     <?php foreach ($logs as $log) : ?>
         <tr>
@@ -34,6 +35,9 @@ $this->assign('title', __d('me_cms', '{0} logs', LINK_SCANNER));
                     <div><?= $log->filetime->i18nFormat(getConfigOrFail('main.date.short')) ?></div>
                     <div><?= $log->filetime->i18nFormat(getConfigOrFail('main.time.short')) ?></div>
                 </div>
+            </td>
+            <td class="min-width text-nowrap text-center">
+                <?= $this->Number->toReadableSize($log->filesize) ?>
             </td>
         </tr>
     <?php endforeach; ?>
