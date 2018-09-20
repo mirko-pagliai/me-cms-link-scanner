@@ -12,6 +12,10 @@
  */
 $this->extend(ME_CMS . './Admin/Common/view');
 $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $filename));
+
+$invalidResults = $results->filter(function($row) {
+    return !$row->isOk();
+});
 ?>
 
 <p class="mb-0">
@@ -20,9 +24,32 @@ $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $
 <p class="mb-0">
     <strong><?= __d('me_cms_link_scanner', 'End time') ?>:</strong> <?= $endTime ?>
 </p>
-<p>
+<p class="mb-0">
     <strong><?= __d('me_cms_link_scanner', 'Elapsed time') ?>:</strong> <?= $elapsedTime ?>
 </p>
+<p class="mb-0">
+    <strong><?= __d('me_cms_link_scanner', 'Total scanned links') ?>:</strong> <?= $results->count() ?>
+</p>
+<p>
+    <strong><?= __d('me_cms_link_scanner', 'Invalid links') ?>:</strong> <?= $invalidResults->count() ?>
+</p>
+
+<div class="mb-4">
+    <div class="btn-group btn-group-sm" role="group">
+        <?php
+            echo $this->Html->button(
+                __d('me_cms_link_scanner', 'Show all'),
+                [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
+                ['class' => 'btn-primary']
+            );
+            echo $this->Html->button(
+                __d('me_cms_link_scanner', 'Show invalid'),
+                [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
+                ['class' => 'btn-primary']
+            );
+        ?>
+    </div>
+</div>
 
 <table class="table table-striped">
     <thead>
@@ -35,6 +62,11 @@ $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $
     </thead>
     <tbody>
         <?php foreach ($results as $row): ?>
+        <?php
+        if ($this->request->getQuery('show') === 'invalid' && $row->isOk()) {
+            continue;
+        }
+        ?>
         <tr>
             <td>
                 <code><?= $row->url ?></code>
