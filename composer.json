@@ -12,7 +12,7 @@
         "php": ">=5.5.9",
         "cakephp/cakephp": "^3.6",
         "mirko-pagliai/me-cms": "^2.25",
-        "mirko-pagliai/cakephp-link-scanner": "dev-master"
+        "mirko-pagliai/cakephp-link-scanner": "^1.0"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
@@ -34,5 +34,6 @@
             "MeCmsLinkScanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
-    }
+    },
+    "minimum-stability": "beta"
 }
