@@ -43,16 +43,15 @@ class LinkScannerController extends AppController
      */
     public function index()
     {
-        $path = TMP . Inflector::underscore(LINK_SCANNER);
-        $logs = array_map(function ($log) use ($path) {
-            $path .= DS . $log;
+        $logs = array_map(function ($log) {
+            $path = LINK_SCANNER_TARGET . DS . $log;
 
             return new Entity([
                 'filename' => $log,
                 'filetime' => new Time(filemtime($path)),
                 'filesize' => filesize($path),
             ]);
-        }, (new Folder($path))->find());
+        }, (new Folder(LINK_SCANNER_TARGET))->find());
 
         $this->set(compact('logs'));
     }
