@@ -112,7 +112,11 @@ if ($this->request->getQuery('show') === 'invalid') {
                     <span class="badge badge-warning"><?= $row->code ?></span>
                 <?php endif; ?>
             </td>
-            <td class="text-center"><?= $row->external ?></td>
+            <td class="text-center">
+                <?php if ($row->external): ?>
+                    <span class="badge badge-success"><?= $this->Html->icon('check') ?></span>
+                <?php endif; ?>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>

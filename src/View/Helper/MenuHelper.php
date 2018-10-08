@@ -47,6 +47,6 @@ class MenuHelper extends Helper
             'prefix' => ADMIN_PREFIX,
         ]];
 
-        return [$links, __d('me_cms_link_scanner', 'Link scanner'), ['icon' => 'film']];
+        return [$links, __d('me_cms_link_scanner', 'Link scanner'), ['icon' => 'link']];
     }
 }
