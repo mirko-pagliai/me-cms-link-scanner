@@ -15,7 +15,6 @@ namespace MeCmsLinkScanner\Controller\Admin;
 use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
 use Cake\ORM\Entity;
-use Cake\Utility\Inflector;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\AppController;
 
@@ -43,6 +42,7 @@ class LinkScannerController extends AppController
      */
     public function index()
     {
+        $logs = (new Folder(LINK_SCANNER_TARGET))->find();
         $logs = array_map(function ($log) {
             $path = LINK_SCANNER_TARGET . DS . $log;
 
@@ -51,7 +51,7 @@ class LinkScannerController extends AppController
                 'filetime' => new Time(filemtime($path)),
                 'filesize' => filesize($path),
             ]);
-        }, (new Folder(LINK_SCANNER_TARGET))->find());
+        }, $logs);
 
         $this->set(compact('logs'));
     }
@@ -65,7 +65,7 @@ class LinkScannerController extends AppController
     public function view($filename)
     {
         $filename = urldecode($filename);
-        $LinkScanner = LinkScanner::import(TMP . Inflector::underscore(LINK_SCANNER) . DS . $filename);
+        $LinkScanner = LinkScanner::import(LINK_SCANNER_TARGET . DS . $filename);
         $endTime = new Time($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(new Time($LinkScanner->startTime), true);
         $fullBaseUrl = $LinkScanner->fullBaseUrl;

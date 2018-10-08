@@ -13,8 +13,11 @@
 $this->extend(ME_CMS . './Admin/Common/view');
 $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $filename));
 
-$invalidResults = $results->filter(function($row) {
-    return !$row->isOk();
+$isRedirectResults = $results->filter(function($row) {
+    return $row->isRedirect();
+});
+$isNotOkResults = $results->filter(function($row) {
+    return !$row->isOk() && !$row->isRedirect();
 });
 ?>
 
@@ -28,11 +31,22 @@ $invalidResults = $results->filter(function($row) {
     <strong><?= __d('me_cms_link_scanner', 'Elapsed time') ?>:</strong> <?= $elapsedTime ?>
 </p>
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'Total scanned links') ?>:</strong> <?= $results->count() ?>
+    <strong><?= __d('me_cms_link_scanner', 'Redirect links') ?>:</strong> <?= $isRedirectResults->count() ?>
+</p>
+<p class="mb-0">
+    <strong><?= __d('me_cms_link_scanner', 'Invalid links') ?>:</strong> <?= $isNotOkResults->count() ?>
 </p>
 <p>
-    <strong><?= __d('me_cms_link_scanner', 'Invalid links') ?>:</strong> <?= $invalidResults->count() ?>
+    <strong><?= __d('me_cms_link_scanner', 'Total scanned links') ?>:</strong> <?= $results->count() ?>
 </p>
+
+<?php
+if ($this->request->getQuery('show') === 'invalid') {
+    $results = $isNotOkResults;
+} elseif ($this->request->getQuery('show') === 'redirects') {
+    $results = $isRedirectResults;
+}
+?>
 
 <div class="mb-4">
     <div class="btn-group btn-group-sm" role="group">
@@ -40,6 +54,11 @@ $invalidResults = $results->filter(function($row) {
             echo $this->Html->button(
                 __d('me_cms_link_scanner', 'Show all'),
                 [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
+                ['class' => 'btn-primary']
+            );
+            echo $this->Html->button(
+                __d('me_cms_link_scanner', 'Show redirects'),
+                [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
                 ['class' => 'btn-primary']
             );
             echo $this->Html->button(
@@ -62,11 +81,6 @@ $invalidResults = $results->filter(function($row) {
     </thead>
     <tbody>
         <?php foreach ($results as $row): ?>
-        <?php
-        if ($this->request->getQuery('show') === 'invalid' && $row->isOk()) {
-            continue;
-        }
-        ?>
         <tr>
             <td>
                 <code><?= $row->url ?></code>
@@ -79,6 +93,12 @@ $invalidResults = $results->filter(function($row) {
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);
+                    if ($row->referer) {
+                        $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $row->referer, [
+                            'icon' => 'external-link-alt',
+                            'target' => '_blank',
+                        ]);
+                    }
                     echo $this->Html->ul($actions, ['class' => 'actions']);
                 ?>
             </td>
@@ -86,6 +106,8 @@ $invalidResults = $results->filter(function($row) {
             <td class="text-center">
                 <?php if ($row->isOk()) : ?>
                     <span class="badge badge-success"><?= $row->code ?></span>
+                <?php elseif ($row->isError()) : ?>
+                    <span class="badge badge-danger"><?= $row->code ?></span>
                 <?php else : ?>
                     <span class="badge badge-warning"><?= $row->code ?></span>
                 <?php endif; ?>
