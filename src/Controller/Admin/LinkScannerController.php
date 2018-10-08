@@ -42,16 +42,17 @@ class LinkScannerController extends AppController
      */
     public function index()
     {
-        $logs = (new Folder(LINK_SCANNER_TARGET))->find();
-        $logs = array_map(function ($log) {
-            $path = LINK_SCANNER_TARGET . DS . $log;
+        $logs = collection((new Folder(LINK_SCANNER_TARGET))->find())
+            ->map(function ($log) {
+                $path = LINK_SCANNER_TARGET . DS . $log;
 
-            return new Entity([
-                'filename' => $log,
-                'filetime' => new Time(filemtime($path)),
-                'filesize' => filesize($path),
-            ]);
-        }, $logs);
+                return new Entity([
+                    'filename' => $log,
+                    'filetime' => new Time(filemtime($path)),
+                    'filesize' => filesize($path),
+                ]);
+            })
+            ->sortBy('filetime');
 
         $this->set(compact('logs'));
     }
