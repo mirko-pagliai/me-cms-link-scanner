@@ -27,7 +27,7 @@ class MenuHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = [ME_CMS . '.Auth'];
+    public $helpers = ['MeCms.Auth'];
 
     /**
      * Internal function to generate the menu for "scanner" actions
@@ -43,7 +43,7 @@ class MenuHelper extends Helper
         $links[] = [__d('me_cms_link_scanner', 'Link scanner'), [
             'controller' => 'LinkScanner',
             'action' => 'index',
-            'plugin' => ME_CMS_LINK_SCANNER,
+            'plugin' => 'MeCmsLinkScanner',
             'prefix' => ADMIN_PREFIX,
         ]];
 

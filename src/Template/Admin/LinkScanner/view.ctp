@@ -10,8 +10,8 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-$this->extend(ME_CMS . './Admin/Common/view');
-$this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', LINK_SCANNER, $filename));
+$this->extend('MeCms./Admin/Common/view');
+$this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', 'LinkScanner', $filename));
 
 $isRedirectResults = $results->filter(function($row) {
     return $row->isRedirect();
@@ -48,6 +48,7 @@ if ($this->request->getQuery('show') === 'invalid') {
 }
 ?>
 
+<?php if ($isRedirectResults->count() || $isNotOkResults->count()) : ?>
 <div class="mb-4">
     <div class="btn-group btn-group-sm" role="group">
         <?php
@@ -56,19 +57,24 @@ if ($this->request->getQuery('show') === 'invalid') {
                 [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
                 ['class' => 'btn-primary']
             );
-            echo $this->Html->button(
-                __d('me_cms_link_scanner', 'Show redirects'),
-                [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
-                ['class' => 'btn-primary']
-            );
-            echo $this->Html->button(
-                __d('me_cms_link_scanner', 'Show invalid'),
-                [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
-                ['class' => 'btn-primary']
-            );
+            if ($isRedirectResults->count()) {
+                echo $this->Html->button(
+                    __d('me_cms_link_scanner', 'Show redirects'),
+                    [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
+                    ['class' => 'btn-primary']
+                );
+            }
+            if ($isNotOkResults->count()) {
+                echo $this->Html->button(
+                    __d('me_cms_link_scanner', 'Show invalid'),
+                    [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
+                    ['class' => 'btn-primary']
+                );
+            }
         ?>
     </div>
 </div>
+<?php endif; ?>
 
 <table class="table table-striped">
     <thead>
@@ -89,7 +95,7 @@ if ($this->request->getQuery('show') === 'invalid') {
                 <?php endif; ?>
                 <?php
                     $actions = [];
-                    $actions[] = $this->Html->link(I18N_OPEN, $row->getOriginal('url'), [
+                    $actions[] = $this->Html->link(I18N_OPEN, $row->url, [
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);
@@ -106,7 +112,7 @@ if ($this->request->getQuery('show') === 'invalid') {
             <td class="text-center">
                 <?php if ($row->isOk()) : ?>
                     <span class="badge badge-success"><?= $row->code ?></span>
-                <?php elseif ($row->isError()) : ?>
+                <?php elseif (!$row->isRedirect()) : ?>
                     <span class="badge badge-danger"><?= $row->code ?></span>
                 <?php else : ?>
                     <span class="badge badge-warning"><?= $row->code ?></span>

@@ -15,7 +15,7 @@ use Cake\Routing\Router;
 
 Router::defaultRouteClass('DashedRoute');
 
-Router::plugin(ME_CMS_LINK_SCANNER, ['path' => '/me-cms-link-scanner'], function (RouteBuilder $routes) {
+Router::plugin('MeCmsLinkScanner', ['path' => '/me-cms-link-scanner'], function (RouteBuilder $routes) {
     //Admin routes
     $routes->prefix(ADMIN_PREFIX, function (RouteBuilder $routes) {
         //All admin routes

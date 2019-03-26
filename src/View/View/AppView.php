@@ -31,7 +31,7 @@ class AppView extends MeCmsAppView
      */
     public function renderLayout($content, $layout = null)
     {
-        $this->plugin ?: ME_CMS;
+        $this->plugin ?: 'MeCms';
 
         return parent::renderLayout($content, $layout);
     }

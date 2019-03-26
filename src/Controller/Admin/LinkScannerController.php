@@ -42,9 +42,11 @@ class LinkScannerController extends AppController
      */
     public function index()
     {
-        $logs = collection((new Folder(LINK_SCANNER_TARGET))->find())
-            ->map(function ($log) {
-                $path = LINK_SCANNER_TARGET . DS . $log;
+        $target = (new LinkScanner)->getConfig('target');
+
+        $logs = collection((new Folder($target))->find())
+            ->map(function ($log) use ($target) {
+                $path = $target . DS . $log;
 
                 return new Entity([
                     'filename' => $log,
@@ -65,8 +67,7 @@ class LinkScannerController extends AppController
      */
     public function view($filename)
     {
-        $filename = urldecode($filename);
-        $LinkScanner = LinkScanner::import(LINK_SCANNER_TARGET . DS . $filename);
+        $LinkScanner = LinkScanner::import((new LinkScanner)->getConfig('target') . DS . urldecode($filename));
         $endTime = new Time($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(new Time($LinkScanner->startTime), true);
         $fullBaseUrl = $LinkScanner->fullBaseUrl;
