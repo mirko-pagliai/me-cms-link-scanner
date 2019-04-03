@@ -50,7 +50,7 @@ class LinkScannerController extends AppController
 
                 return new Entity([
                     'filename' => $log,
-                    'filetime' => new Time(filemtime($path)),
+                    'filetime' => Time::createFromTimestamp(filemtime($path)),
                     'filesize' => filesize($path),
                 ]);
             })
@@ -68,9 +68,9 @@ class LinkScannerController extends AppController
     public function view($filename)
     {
         $LinkScanner = LinkScanner::import((new LinkScanner)->getConfig('target') . DS . urldecode($filename));
-        $endTime = new Time($LinkScanner->endTime);
-        $elapsedTime = $endTime->diffForHumans(new Time($LinkScanner->startTime), true);
-        $fullBaseUrl = $LinkScanner->fullBaseUrl;
+        $endTime = Time::createFromTimestamp($LinkScanner->endTime);
+        $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
+        $fullBaseUrl = $LinkScanner->getConfig('fullBaseUrl');
 
         $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrl) {
             foreach (['url', 'referer'] as $property) {

@@ -95,12 +95,12 @@ if ($this->request->getQuery('show') === 'invalid') {
                 <?php endif; ?>
                 <?php
                     $actions = [];
-                    $actions[] = $this->Html->link(I18N_OPEN, $row->url, [
+                    $actions[] = $this->Html->link(I18N_OPEN, $fullBaseUrl . $row->url, [
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);
                     if ($row->referer) {
-                        $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $row->referer, [
+                        $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->referer, [
                             'icon' => 'external-link-alt',
                             'target' => '_blank',
                         ]);
