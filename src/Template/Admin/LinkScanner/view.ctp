@@ -89,9 +89,13 @@ if ($this->request->getQuery('show') === 'invalid') {
         <?php foreach ($results as $row): ?>
         <tr>
             <td>
-                <code><?= $row->url ?></code>
+                <code class="text-truncate">
+                    <?= $this->Text->truncate($row->url, 100); ?>
+                </code>
                 <?php if ($row->referer): ?>
-                    <div><small><?= __d('me_cms_link_scanner', 'Referer: {0}', $row->referer) ?></small></div>
+                    <div class="small text-truncate">
+                        <?= __d('me_cms_link_scanner', 'Referer: {0}', $this->Text->truncate($row->referer, 100)) ?>
+                    </div>
                 <?php endif; ?>
                 <?php
                     $actions = [];
