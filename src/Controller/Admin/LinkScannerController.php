@@ -63,11 +63,12 @@ class LinkScannerController extends AppController
      * Views a `LinkScanner` log
      * @param string $filename Filename
      * @return void
-     * @uses LinkScanner\Utility\LinkScanner::import()
+     * @uses \LinkScanner\Utility\LinkScanner
      */
     public function view($filename)
     {
-        $LinkScanner = LinkScanner::import((new LinkScanner)->getConfig('target') . DS . urldecode($filename));
+        $LinkScanner = new LinkScanner;
+        $LinkScanner = $LinkScanner->import($LinkScanner->getConfig('target') . DS . urldecode($filename));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = $LinkScanner->getConfig('fullBaseUrl');
