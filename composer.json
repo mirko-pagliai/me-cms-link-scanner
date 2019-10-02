@@ -9,14 +9,14 @@
         "email": "mirko.pagliai@gmail.com"
     }],
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.0",
         "cakephp/cakephp": "^3.6",
-        "mirko-pagliai/me-cms": "^2.25",
+        "mirko-pagliai/me-cms": "^2.27",
         "mirko-pagliai/cakephp-link-scanner": "^1.0"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^3.0",
-        "phpunit/phpunit": "^5.7|^6.0"
+        "phpunit/phpunit": "^6.0"
     },
     "repositories": [
         {
