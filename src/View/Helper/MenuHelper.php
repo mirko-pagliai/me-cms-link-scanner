@@ -9,6 +9,7 @@
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ * @see         \MeCms\View\Helper\MenuBuilderHelper
  */
 namespace MeCmsLinkScanner\View\Helper;
 
@@ -18,8 +19,18 @@ use Cake\View\Helper;
  * Menu Helper.
  *
  * This helper contains methods that will be called automatically to generate
- * the menu of the admin layout.
- * You do not need to call these methods manually.
+ *  menus for the admin layout.
+ * You don't need to call these methods manually, use instead the
+ *  `MenuBuilderHelper` helper.
+ *
+ * Each method must return an array with four values:
+ *  - the menu links, as an array of parameters;
+ *  - the menu title;
+ *  - the options for the menu title;
+ *  - the controllers handled by this menu, as an array.
+ *
+ * See the `\MeCms\View\Helper\MenuBuilderHelper::generate()` method for more
+ *  information.
  */
 class MenuHelper extends Helper
 {
@@ -31,13 +42,13 @@ class MenuHelper extends Helper
 
     /**
      * Internal function to generate the menu for "scanner" actions
-     * @return mixed Array with links, title and title options
+     * @return array Array with links, title, title options and handled controllers
      */
     public function scanner()
     {
         //Only admins access this controller
         if (!$this->Auth->isGroup('admin')) {
-            return;
+            return [];
         }
 
         $links[] = [__d('me_cms_link_scanner', 'Link scanner'), [
@@ -47,6 +58,6 @@ class MenuHelper extends Helper
             'prefix' => ADMIN_PREFIX,
         ]];
 
-        return [$links, __d('me_cms_link_scanner', 'Link scanner'), ['icon' => 'link']];
+        return [$links, __d('me_cms_link_scanner', 'Link scanner'), ['icon' => 'link'], ['LinkScanner']];
     }
 }

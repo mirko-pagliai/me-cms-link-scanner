@@ -16,7 +16,7 @@ use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
 use Cake\ORM\Entity;
 use LinkScanner\Utility\LinkScanner;
-use MeCms\Controller\AppController;
+use MeCms\Controller\Admin\AppController;
 
 /**
  * LinkScanner controller
