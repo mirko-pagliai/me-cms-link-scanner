@@ -124,7 +124,7 @@ if ($this->request->getQuery('show') === 'invalid') {
             </td>
             <td class="text-center">
                 <?php if ($row->external): ?>
-                    <span class="badge badge-success"><?= $this->Html->icon('check') ?></span>
+                    <span class="badge badge-success"><?= $this->Icon->icon('check') ?></span>
                 <?php endif; ?>
             </td>
         </tr>
