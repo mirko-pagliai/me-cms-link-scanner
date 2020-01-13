@@ -11,11 +11,12 @@
     "require": {
         "php": ">=7.2",
         "ctlabvn/recaptcha": "dev-cake-4",
+        "dereuromark/cakephp-feed": "^2.0|2.0.0-beta",
         "mirko-pagliai/me-cms": "dev-cakephp4",
-        "mirko-pagliai/cakephp-link-scanner": "dev-cakephp4"
+        "mirko-pagliai/cakephp-link-scanner": "^1.1"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "dev-next",
+        "cakephp/cakephp-codesniffer": "^4.0",
         "phpunit/phpunit": "^8.0"
     },
     "repositories": [
@@ -46,6 +47,5 @@
             "MeCmsLinkScanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
