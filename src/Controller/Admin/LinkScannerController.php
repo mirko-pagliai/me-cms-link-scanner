@@ -30,7 +30,7 @@ class LinkScannerController extends AppController
      * @return bool `true` if the user is authorized, otherwise `false`
      * @uses MeCms\Controller\Component\AuthComponent::isGroup()
      */
-    public function isAuthorized($user = null)
+    public function isAuthorized($user = null): bool
     {
         //Only admins can access this controller
         return $this->Auth->isGroup('admin');
@@ -40,7 +40,7 @@ class LinkScannerController extends AppController
      * Lists `LinkScanner` logs
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $target = (new LinkScanner)->getConfig('target');
 
@@ -65,7 +65,7 @@ class LinkScannerController extends AppController
      * @return void
      * @uses \LinkScanner\Utility\LinkScanner
      */
-    public function view($filename)
+    public function view($filename): void
     {
         $LinkScanner = new LinkScanner;
         $LinkScanner = $LinkScanner->import($LinkScanner->getConfig('target') . DS . urldecode($filename));

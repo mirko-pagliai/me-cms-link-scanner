@@ -26,7 +26,7 @@ class Plugin extends BasePlugin
      * @param PluginApplicationInterface $app The host application
      * @return void
      */
-    public function bootstrap(PluginApplicationInterface $app)
+    public function bootstrap(PluginApplicationInterface $app): void
     {
         if (!$app->getPlugins()->has('LinkScanner')) {
             $app->addPlugin(LinkScanner::class);
