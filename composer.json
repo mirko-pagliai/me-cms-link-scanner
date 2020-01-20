@@ -5,18 +5,18 @@
     "type": "cakephp-plugin",
     "license": "MIT",
     "authors": [{
-        "name": "Mirko Pagliai",
-        "email": "mirko.pagliai@gmail.com"
-    }],
+            "name": "Mirko Pagliai",
+            "email": "mirko.pagliai@gmail.com"
+        }],
     "require": {
         "php": ">=7.0",
-        "cakephp/cakephp": "^3.6",
         "mirko-pagliai/me-cms": "^2.27",
-        "mirko-pagliai/cakephp-link-scanner": "^1.0"
+        "mirko-pagliai/cakephp-link-scanner": "^1.0.5"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^3.0",
-        "phpunit/phpunit": "^6.0"
+        "mirko-pagliai/cakephp-assets": "^1.4.1",
+        "cakephp/cakephp-codesniffer": "^3.0|^4.0",
+        "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "repositories": [
         {
