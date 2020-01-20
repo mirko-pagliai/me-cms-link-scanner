@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.0 branch
+### 1.0.2
+* added tests.
+
 ### 1.0.1
 * updated for `me-cms` `2.27`.
 
