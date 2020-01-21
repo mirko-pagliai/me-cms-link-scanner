@@ -42,10 +42,10 @@ class LinkScannerController extends AppController
      */
     public function index(): void
     {
-        $target = (new LinkScanner)->getConfig('target');
+        $target = (new LinkScanner())->getConfig('target');
 
         $logs = collection((new Folder($target))->find())
-            ->map(function ($log) use ($target) {
+            ->map(function (string $log) use ($target) {
                 $path = $target . DS . $log;
 
                 return new Entity([
@@ -67,8 +67,8 @@ class LinkScannerController extends AppController
      */
     public function view($filename): void
     {
-        $LinkScanner = new LinkScanner;
-        $LinkScanner = $LinkScanner->import($LinkScanner->getConfig('target') . DS . urldecode($filename));
+        $LinkScanner = new LinkScanner();
+        $LinkScanner = $LinkScanner->import(add_slash_term($LinkScanner->getConfig('target')) . urldecode($filename));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = $LinkScanner->getConfig('fullBaseUrl');
