@@ -13,10 +13,10 @@
 $this->extend('MeCms./Admin/common/view');
 $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', 'LinkScanner', $filename));
 
-$isRedirectResults = $results->filter(function($row) {
+$isRedirectResults = $results->filter(function ($row) {
     return $row->isRedirect();
 });
-$isNotOkResults = $results->filter(function($row) {
+$isNotOkResults = $results->filter(function ($row) {
     return !$row->isOk() && !$row->isRedirect();
 });
 ?>
@@ -52,25 +52,25 @@ if ($this->request->getQuery('show') === 'invalid') {
 <div class="mb-4">
     <div class="btn-group btn-group-sm" role="group">
         <?php
+        echo $this->Html->button(
+            __d('me_cms_link_scanner', 'Show all'),
+            [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
+            ['class' => 'btn-primary']
+        );
+        if ($isRedirectResults->count()) {
             echo $this->Html->button(
-                __d('me_cms_link_scanner', 'Show all'),
-                [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
+                __d('me_cms_link_scanner', 'Show redirects'),
+                [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
                 ['class' => 'btn-primary']
             );
-            if ($isRedirectResults->count()) {
-                echo $this->Html->button(
-                    __d('me_cms_link_scanner', 'Show redirects'),
-                    [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
-                    ['class' => 'btn-primary']
-                );
-            }
-            if ($isNotOkResults->count()) {
-                echo $this->Html->button(
-                    __d('me_cms_link_scanner', 'Show invalid'),
-                    [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
-                    ['class' => 'btn-primary']
-                );
-            }
+        }
+        if ($isNotOkResults->count()) {
+            echo $this->Html->button(
+                __d('me_cms_link_scanner', 'Show invalid'),
+                [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
+                ['class' => 'btn-primary']
+            );
+        }
         ?>
     </div>
 </div>
@@ -86,44 +86,44 @@ if ($this->request->getQuery('show') === 'invalid') {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($results as $row): ?>
+        <?php foreach ($results as $row) : ?>
         <tr>
             <td>
                 <code class="text-truncate">
-                    <?= $this->Text->truncate($row->url, 100); ?>
+                    <?= $this->Text->truncate($row->get('url'), 100); ?>
                 </code>
-                <?php if ($row->referer): ?>
+                <?php if ($row->get('referer')) : ?>
                     <div class="small text-truncate">
-                        <?= __d('me_cms_link_scanner', 'Referer: {0}', $this->Text->truncate($row->referer, 100)) ?>
+                        <?= __d('me_cms_link_scanner', 'Referer: {0}', $this->Text->truncate($row->get('referer'), 100)) ?>
                     </div>
                 <?php endif; ?>
                 <?php
-                    $actions = [];
-                    $actions[] = $this->Html->link(I18N_OPEN, $fullBaseUrl . $row->url, [
+                $actions = [];
+                $actions[] = $this->Html->link(I18N_OPEN, $fullBaseUrl . $row->get('url'), [
+                    'icon' => 'external-link-alt',
+                    'target' => '_blank',
+                ]);
+                if ($row->get('referer')) {
+                    $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->get('referer'), [
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);
-                    if ($row->referer) {
-                        $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->referer, [
-                            'icon' => 'external-link-alt',
-                            'target' => '_blank',
-                        ]);
-                    }
-                    echo $this->Html->ul($actions, ['class' => 'actions']);
+                }
+                echo $this->Html->ul($actions, ['class' => 'actions']);
                 ?>
             </td>
-            <td class="text-nowrap"><code><?= $row->type ?></code></td>
+            <td class="text-nowrap"><code><?= $row->get('type') ?></code></td>
             <td class="text-center">
                 <?php if ($row->isOk()) : ?>
-                    <span class="badge badge-success"><?= $row->code ?></span>
+                    <span class="badge badge-success"><?= $row->get('code') ?></span>
                 <?php elseif (!$row->isRedirect()) : ?>
-                    <span class="badge badge-danger"><?= $row->code ?></span>
+                    <span class="badge badge-danger"><?= $row->get('code') ?></span>
                 <?php else : ?>
-                    <span class="badge badge-warning"><?= $row->code ?></span>
+                    <span class="badge badge-warning"><?= $row->get('code') ?></span>
                 <?php endif; ?>
             </td>
             <td class="text-center">
-                <?php if ($row->external): ?>
+                <?php if ($row->get('external')) : ?>
                     <span class="badge badge-success"><?= $this->Icon->icon('check') ?></span>
                 <?php endif; ?>
             </td>

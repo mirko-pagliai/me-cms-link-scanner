@@ -44,14 +44,13 @@ class LinkScannerController extends AppController
      */
     public function index(): void
     {
-        $target = (new LinkScanner())->getConfig('target');
+        $target = add_slash_term((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
-            ->map(function (string $log) use ($target) {
-                $path = $target . DS . $log;
+            ->map(function (string $filename) use ($target) {
+                $path = $target . DS . $filename;
 
-                return new Entity([
-                    'filename' => $log,
+                return new Entity(compact('filename') + [
                     'filetime' => Time::createFromTimestamp(filemtime($path)),
                     'filesize' => filesize($path),
                 ]);

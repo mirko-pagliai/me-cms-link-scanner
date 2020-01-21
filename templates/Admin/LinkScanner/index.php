@@ -24,20 +24,20 @@ $this->assign('title', __d('me_cms_link_scanner', '{0} logs', 'LinkScanner'));
         <tr>
             <td>
                 <strong>
-                    <?= $this->Html->link($log->filename, ['action' => 'view', $log->filename]) ?>
+                    <?= $this->Html->link($log->filename, ['action' => 'view', $log->get('filename')]) ?>
                 </strong>
             </td>
             <td class="text-nowrap text-center">
                 <div class="d-none d-lg-block">
-                    <?= $log->filetime->i18nFormat() ?>
+                    <?= $log->get('filetime')->i18nFormat() ?>
                 </div>
                 <div class="d-lg-none">
-                    <div><?= $log->filetime->i18nFormat(getConfigOrFail('main.date.short')) ?></div>
-                    <div><?= $log->filetime->i18nFormat(getConfigOrFail('main.time.short')) ?></div>
+                    <div><?= $log->get('filetime')->i18nFormat(getConfigOrFail('main.date.short')) ?></div>
+                    <div><?= $log->get('filetime')->i18nFormat(getConfigOrFail('main.time.short')) ?></div>
                 </div>
             </td>
             <td class="min-width text-nowrap text-center">
-                <?= $this->Number->toReadableSize($log->filesize) ?>
+                <?= $this->Number->toReadableSize($log->get('filesize')) ?>
             </td>
         </tr>
     <?php endforeach; ?>
