@@ -46,7 +46,7 @@ class LinkScannerController extends AppController
 
         $logs = collection((new Folder($target))->find())
             ->map(function ($filename) use ($target) {
-                $path = $target . DS . $filename;
+                $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
                     'filetime' => Time::createFromTimestamp(filemtime($path)),
