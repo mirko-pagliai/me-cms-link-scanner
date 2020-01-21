@@ -14,8 +14,8 @@
         "mirko-pagliai/cakephp-link-scanner": "^1.0.5"
     },
     "require-dev": {
-        "mirko-pagliai/cakephp-assets": "^1.4.1",
         "cakephp/cakephp-codesniffer": "^3.0|^4.0",
+        "mirko-pagliai/cakephp-assets": "^1.4.1",
         "phpunit/phpunit": "^5.7.14|^6.0"
     },
     "repositories": [
@@ -34,6 +34,5 @@
             "MeCmsLinkScanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
-    },
-    "minimum-stability": "beta"
+    }
 }
