@@ -17,8 +17,8 @@ namespace App;
 
 use Cake\Http\BaseApplication;
 use Cake\Routing\Middleware\RoutingMiddleware;
-use MeCmsLinkScanner\Plugin as MeCmsLinkScanner;
 use MeCms\Plugin as MeCms;
+use MeCmsLinkScanner\Plugin as MeCmsLinkScanner;
 
 /**
  * Application setup class.
