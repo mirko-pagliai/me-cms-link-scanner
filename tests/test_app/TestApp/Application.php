@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-instagram.
@@ -16,9 +17,10 @@
 namespace App;
 
 use Cake\Http\BaseApplication;
+use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
-use MeCmsLinkScanner\Plugin as MeCmsLinkScanner;
 use MeCms\Plugin as MeCms;
+use MeCmsLinkScanner\Plugin as MeCmsLinkScanner;
 
 /**
  * Application setup class.
@@ -31,7 +33,7 @@ class Application extends BaseApplication
     /**
      * Load all the application configuration and bootstrap logic
      */
-    public function bootstrap()
+    public function bootstrap(): void
     {
         $this->addPlugin(MeCms::class, ['bootstrap' => false, 'routes' => false]);
         $this->addPlugin(MeCmsLinkScanner::class, ['bootstrap' => false, 'routes' => false]);
@@ -39,11 +41,11 @@ class Application extends BaseApplication
 
     /**
      * Define the HTTP middleware layers for an application
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
+     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to set in your App Class
      * @return \Cake\Http\MiddlewareQueue
      */
-    public function middleware($middlewareQueue)
+    public function middleware(MiddlewareQueue $middleware): MiddlewareQueue
     {
-        return $middlewareQueue->add(new RoutingMiddleware($this));
+        return $middleware->add(new RoutingMiddleware($this));
     }
 }

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of me-cms-link-scanner.
  *
@@ -10,6 +12,7 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 

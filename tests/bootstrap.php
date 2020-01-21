@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -67,10 +68,7 @@ Configure::write('App', [
     'cssBaseUrl' => 'css/',
     'paths' => [
         'plugins' => [APP . 'Plugin' . DS],
-        'templates' => [
-            APP . 'Template' . DS,
-            ROOT . 'src' . DS . 'Template' . DS,
-        ],
+        'templates' => [APP . 'templates' . DS],
     ],
 ]);
 Configure::write('Session', ['defaults' => 'php']);

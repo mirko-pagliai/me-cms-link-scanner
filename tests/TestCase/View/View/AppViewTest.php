@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -14,6 +15,7 @@
 
 namespace MeCmsLinkScanner\Test\TestCase\View\View;
 
+use Cake\Http\ServerRequest;
 use MeCmsLinkScanner\View\View\AppView;
 use MeTools\TestSuite\TestCase;
 
@@ -28,7 +30,8 @@ class AppViewTest extends TestCase
      */
     public function testRenderLayout()
     {
-        $view = new AppView();
+        $request = new ServerRequest();
+        $view = new AppView($request->withEnv('REQUEST_URI', '/'));
         $view->renderLayout('', 'with_flash');
         $this->assertSame('MeCms', $view->getPlugin());
     }

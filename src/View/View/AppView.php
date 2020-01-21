@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of me-cms-link-scanner.
  *
@@ -25,11 +27,11 @@ class AppView extends MeCmsAppView
      * @param string $content Content to render in a view, wrapped by the
      *  surrounding layout
      * @param string|null $layout Layout name
-     * @return mixed Rendered output, or false on error
+     * @return string Rendered output
      * @see http://api.cakephp.org/3.4/class-Cake.View.View.html#_renderLayout
      * @uses MeCms\View\View\AppView::renderLayout()
      */
-    public function renderLayout($content, $layout = null)
+    public function renderLayout($content, $layout = null): string
     {
         $this->plugin ?: 'MeCms';
 

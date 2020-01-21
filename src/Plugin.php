@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of me-cms-link-scanner.
  *
@@ -23,7 +25,7 @@ class Plugin extends BasePlugin
 {
     /**
      * Load all the application configuration and bootstrap logic
-     * @param PluginApplicationInterface $app The host application
+     * @param \Cake\Core\PluginApplicationInterface $app The host application
      * @return void
      */
     public function bootstrap(PluginApplicationInterface $app): void

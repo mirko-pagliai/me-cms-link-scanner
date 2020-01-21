@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
+        "mirko-pagliai/cakephp-assets": "^1.5",
         "phpunit/phpunit": "^8.0"
     },
     "repositories": [
@@ -45,6 +46,7 @@
     "autoload-dev": {
         "psr-4": {
             "MeCmsLinkScanner\\Test\\": "tests",
+            "Recaptcha\\": "vendor/ctlabvn/recaptcha/src/",
             "App\\": "tests/test_app/TestApp"
         }
     }
