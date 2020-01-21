@@ -74,7 +74,7 @@ class LinkScannerController extends AppController
 
         $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrl) {
             foreach (['url', 'referer'] as $property) {
-                $result->$property = preg_replace(sprintf('/^%s\/?/', preg_quote($fullBaseUrl, DS)), '/', $result->$property);
+                $result->$property = preg_replace(sprintf('/^%s\/?/', preg_quote($fullBaseUrl, DS)), DS, $result->$property);
             }
 
             return $result;
