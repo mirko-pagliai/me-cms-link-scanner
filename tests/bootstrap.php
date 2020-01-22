@@ -20,11 +20,6 @@ ini_set('intl.default_locale', 'en_US');
 date_default_timezone_set('UTC');
 mb_internal_encoding('UTF-8');
 
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-
-// Path constants to a few helpful things.
 define('ROOT', dirname(__DIR__) . DS);
 define('VENDOR', ROOT . 'vendor' . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . 'vendor' . DS . 'cakephp' . DS . 'cakephp');
@@ -41,10 +36,6 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP . 'cache' . DS);
 define('LOGS', TMP . 'logs' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
-
-require dirname(__DIR__) . '/vendor/autoload.php';
-require CORE_PATH . 'config' . DS . 'bootstrap.php';
-
 @mkdir(TMP);
 @mkdir(TMP . 'cakephp-link-scanner');
 @mkdir(LOGS);
@@ -52,6 +43,9 @@ require CORE_PATH . 'config' . DS . 'bootstrap.php';
 @mkdir(CACHE);
 @mkdir(CACHE . 'views');
 @mkdir(CACHE . 'models');
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
 Configure::write('debug', true);
 Configure::write('App', [
@@ -66,12 +60,12 @@ Configure::write('App', [
     'imageBaseUrl' => 'img/',
     'jsBaseUrl' => 'js/',
     'cssBaseUrl' => 'css/',
-    'paths' => [
-        'plugins' => [APP . 'Plugin' . DS],
-        'templates' => [APP . 'templates' . DS],
-    ],
+    'paths' => ['templates' => [APP . 'templates' . DS]],
 ]);
 Configure::write('Session', ['defaults' => 'php']);
+Configure::write('Assets.target', TMP . 'assets');
+Configure::write('DatabaseBackup.target', TMP . 'backups');
+Configure::write('pluginsToLoad', ['MeCms', 'MeCmsLinkScanner']);
 
 Cache::setConfig([
     '_cake_core_' => [
@@ -79,24 +73,6 @@ Cache::setConfig([
         'prefix' => 'cake_core_',
         'serialize' => true,
     ],
-    '_cake_model_' => [
-        'engine' => 'File',
-        'prefix' => 'cake_model_',
-        'serialize' => true,
-    ],
-    'default' => [
-        'engine' => 'File',
-        'prefix' => 'default_',
-        'serialize' => true,
-    ],
 ]);
 
-Configure::write('Assets.target', TMP . 'assets');
-Configure::write('DatabaseBackup.target', TMP . 'backups');
-Configure::write('pluginsToLoad', ['MeCms', 'MeCmsLinkScanner']);
-
 $_SERVER['PHP_SELF'] = '/';
-
-if (function_exists('loadPHPUnitAliases')) {
-    loadPHPUnitAliases();
-}

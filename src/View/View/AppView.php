@@ -28,7 +28,6 @@ class AppView extends MeCmsAppView
      *  surrounding layout
      * @param string|null $layout Layout name
      * @return string Rendered output
-     * @see http://api.cakephp.org/3.4/class-Cake.View.View.html#_renderLayout
      * @uses MeCms\View\View\AppView::renderLayout()
      */
     public function renderLayout($content, $layout = null): string
