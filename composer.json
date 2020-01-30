@@ -12,8 +12,9 @@
         "php": ">=7.2",
         "ctlabvn/recaptcha": "dev-cake-4",
         "dereuromark/cakephp-feed": "^2.0|2.0.0-beta",
+        "mirko-pagliai/cakephp-link-scanner": "^1.1",
         "mirko-pagliai/me-cms": "dev-cakephp4",
-        "mirko-pagliai/cakephp-link-scanner": "^1.1"
+        "mirko-pagliai/php-tools": "^1.3.2"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
