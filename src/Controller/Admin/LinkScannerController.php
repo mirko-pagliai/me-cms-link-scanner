@@ -72,11 +72,12 @@ class LinkScannerController extends AppController
         $LinkScanner = $LinkScanner->import(add_slash_term($LinkScanner->getConfig('target')) . urldecode($filename));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
-        $fullBaseUrl = $LinkScanner->getConfig('fullBaseUrl');
+        $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
+        $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 
-        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrl) {
-            foreach (['url', 'referer'] as $property) {
-                $result->$property = preg_replace(sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/')), '/', $result->$property);
+        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex) {
+            foreach (['url', 'referer'] as $name) {
+                $result->set($name, $result->get($name) ? preg_replace($fullBaseUrlRegex, '/', $result->get($name)) : null);
             }
 
             return $result;
