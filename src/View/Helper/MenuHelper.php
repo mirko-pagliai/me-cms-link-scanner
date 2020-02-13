@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -45,7 +46,7 @@ class MenuHelper extends Helper
      * Internal function to generate the menu for "scanner" actions
      * @return array Array with links, title, title options and handled controllers
      */
-    public function scanner()
+    public function scanner(): array
     {
         //Only admins access this controller
         if (!$this->Auth->isGroup('admin')) {

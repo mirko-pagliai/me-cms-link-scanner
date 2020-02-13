@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-$this->extend('MeCms./Admin/Common/view');
+$this->extend('MeCms./Admin/common/view');
 $this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', 'LinkScanner', $filename));
 
 $isRedirectResults = $results->filter(function ($row) {
@@ -86,30 +86,30 @@ if ($this->request->getQuery('show') === 'invalid') {
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($results as $row): ?>
+        <?php foreach ($results as $row) : ?>
         <tr>
             <td>
                 <code class="text-truncate">
                     <?= $this->Text->truncate($row->get('url'), 100); ?>
                 </code>
-                <?php if ($row->get('referer')): ?>
+                <?php if ($row->get('referer')) : ?>
                     <div class="small text-truncate">
                         <?= __d('me_cms_link_scanner', 'Referer: {0}', $this->Text->truncate($row->get('referer'), 100)) ?>
                     </div>
                 <?php endif; ?>
                 <?php
-                    $actions = [];
-                    $actions[] = $this->Html->link(I18N_OPEN, $fullBaseUrl . $row->get('url'), [
+                $actions = [];
+                $actions[] = $this->Html->link(I18N_OPEN, $fullBaseUrl . $row->get('url'), [
+                    'icon' => 'external-link-alt',
+                    'target' => '_blank',
+                ]);
+                if ($row->get('referer')) {
+                    $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->get('referer'), [
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);
-                    if ($row->referer) {
-                        $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->get('referer'), [
-                            'icon' => 'external-link-alt',
-                            'target' => '_blank',
-                        ]);
-                    }
-                    echo $this->Html->ul($actions, ['class' => 'actions']);
+                }
+                echo $this->Html->ul($actions, ['class' => 'actions']);
                 ?>
             </td>
             <td class="text-nowrap"><code><?= $row->get('type') ?></code></td>
@@ -123,7 +123,7 @@ if ($this->request->getQuery('show') === 'invalid') {
                 <?php endif; ?>
             </td>
             <td class="text-center">
-                <?php if ($row->get('external')): ?>
+                <?php if ($row->get('external')) : ?>
                     <span class="badge badge-success"><?= $this->Icon->icon('check') ?></span>
                 <?php endif; ?>
             </td>

@@ -1,4 +1,9 @@
 # 1.x branch
+## 1.1 branch
+### 1.1.0
+* updated for `cakephp` 4 and `phpunit` 8;
+* added pot template and italian translation.
+
 ## 1.0 branch
 ### 1.0.2
 * little fixes;

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -27,7 +28,7 @@ class MenuHelperTest extends HelperTestCase
      * @param array $data Data you want to write
      * @return void
      */
-    protected function writeAuthOnSession(array $data = [])
+    protected function writeAuthOnSession(array $data = []): void
     {
         $this->Helper->getView()->getRequest()->getSession()->write('Auth.User', $data);
         $this->Helper->Auth->initialize([]);
@@ -38,7 +39,7 @@ class MenuHelperTest extends HelperTestCase
      * @param array $links Links
      * @return string
      */
-    protected function buildLinks(array $links)
+    protected function buildLinks(array $links): string
     {
         return implode(PHP_EOL, array_map(function (array $link) {
             return call_user_func_array([$this->getMockForHelper(HtmlHelper::class, null), 'link'], $link);
@@ -54,7 +55,7 @@ class MenuHelperTest extends HelperTestCase
         $this->assertEmpty($this->Helper->scanner());
 
         $this->writeAuthOnSession(['group' => ['name' => 'admin']]);
-        list($links,,, $handledControllers) = $this->Helper->scanner();
+        [$links,,, $handledControllers] = $this->Helper->scanner();
         $links = $this->buildLinks($links);
         $this->assertTextContains('Link scanner', $links);
         $this->assertEquals(['LinkScanner'], $handledControllers);

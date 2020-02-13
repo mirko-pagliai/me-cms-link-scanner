@@ -13,13 +13,23 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Cake\Routing\RouteBuilder;
-use Cake\Routing\Router;
+namespace MeCmsLinkScanner\Test\TestCase;
 
-Router::defaultRouteClass('DashedRoute');
+use Cake\I18n\I18n;
+use MeTools\TestSuite\TestCase;
 
-Router::plugin('MeCmsLinkScanner', ['path' => '/me-cms-link-scanner'], function (RouteBuilder $routes) {
-    $routes->prefix(ADMIN_PREFIX, function (RouteBuilder $routes) {
-        $routes->fallbacks('DashedRoute');
-    });
-});
+/**
+ * I18nTest class
+ */
+class I18nTest extends TestCase
+{
+    /**
+     * Tests I18n translations
+     * @test
+     */
+    public function testI18nConstant()
+    {
+        $translator = I18n::getTranslator('me_cms_link_scanner', 'it');
+        $this->assertEquals('Ultima modifica', $translator->translate('Last modification'));
+    }
+}

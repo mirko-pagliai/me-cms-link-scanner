@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -31,7 +32,7 @@ class LinkScannerController extends AppController
      * @return bool `true` if the user is authorized, otherwise `false`
      * @uses MeCms\Controller\Component\AuthComponent::isGroup()
      */
-    public function isAuthorized($user = null)
+    public function isAuthorized($user = null): bool
     {
         //Only admins can access this controller
         return $this->Auth->isGroup('admin');
@@ -41,12 +42,12 @@ class LinkScannerController extends AppController
      * Lists `LinkScanner` logs
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $target = add_slash_term((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
-            ->map(function ($filename) use ($target) {
+            ->map(function (string $filename) use ($target) {
                 $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
@@ -65,17 +66,18 @@ class LinkScannerController extends AppController
      * @return void
      * @uses \LinkScanner\Utility\LinkScanner
      */
-    public function view($filename)
+    public function view($filename): void
     {
         $LinkScanner = new LinkScanner();
         $LinkScanner = $LinkScanner->import(add_slash_term($LinkScanner->getConfig('target')) . urldecode($filename));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
-        $fullBaseUrl = $LinkScanner->getConfig('fullBaseUrl');
+        $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
+        $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 
-        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrl) {
-            foreach (['url', 'referer'] as $property) {
-                $result->$property = preg_replace(sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/')), '/', $result->$property);
+        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex) {
+            foreach (['url', 'referer'] as $name) {
+                $result->set($name, $result->get($name) ? preg_replace($fullBaseUrlRegex, '/', $result->get($name)) : null);
             }
 
             return $result;
