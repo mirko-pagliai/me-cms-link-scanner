@@ -9,19 +9,33 @@
             "email": "mirko.pagliai@gmail.com"
         }],
     "require": {
-        "php": ">=7.0",
-        "mirko-pagliai/me-cms": "^2.27",
-        "mirko-pagliai/cakephp-link-scanner": "^1.0.5"
+        "php": ">=7.2",
+        "ctlabvn/recaptcha": "dev-cake-4",
+        "dereuromark/cakephp-feed": "^2.0|2.0.0-beta",
+        "mirko-pagliai/cakephp-link-scanner": "^1.1",
+        "mirko-pagliai/me-cms": "^2.28",
+        "mirko-pagliai/php-tools": "^1.3.2"
     },
     "require-dev": {
-        "cakephp/cakephp-codesniffer": "^3.0|^4.0",
-        "mirko-pagliai/cakephp-assets": "^1.4.1",
-        "phpunit/phpunit": "^5.7.14|^6.0"
+        "cakephp/cakephp-codesniffer": "^4.0",
+        "phpunit/phpunit": "^8.0"
     },
     "repositories": [
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ctlabvn/recaptcha",
+                "version": "dev-cake-4",
+                "source": {
+                    "url": "https://github.com/ctlabvn/recaptcha.git",
+                    "type": "git",
+                    "reference": "cake-4"
+                }
+            }
         }
     ],
     "autoload": {
@@ -32,6 +46,7 @@
     "autoload-dev": {
         "psr-4": {
             "MeCmsLinkScanner\\Test\\": "tests",
+            "Recaptcha\\": "vendor/ctlabvn/recaptcha/src/",
             "App\\": "tests/test_app/TestApp"
         }
     }

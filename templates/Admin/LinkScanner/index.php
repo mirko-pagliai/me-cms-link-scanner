@@ -10,7 +10,7 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-$this->extend('MeCms./Admin/Common/index');
+$this->extend('MeCms./Admin/common/index');
 $this->assign('title', __d('me_cms_link_scanner', '{0} logs', 'LinkScanner'));
 ?>
 

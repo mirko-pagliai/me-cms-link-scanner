@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of me-cms-link-scanner.
@@ -29,7 +30,7 @@ class LinkScannerControllerTest extends ControllerTestCase
      * Called after every test method
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
@@ -61,7 +62,7 @@ class LinkScannerControllerTest extends ControllerTestCase
 
         $this->get($this->url + ['action' => 'index']);
         $this->assertResponseOkAndNotEmpty();
-        $this->assertTemplate('Admin' . DS . 'LinkScanner' . DS . 'index.ctp');
+        $this->assertTemplate('Admin' . DS . 'LinkScanner' . DS . 'index.php');
         $logs = $this->viewVariable('logs');
         $this->assertContainsOnlyInstancesOf(Entity::class, $logs);
         $this->assertCount(2, $logs);
