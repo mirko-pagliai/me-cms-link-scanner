@@ -19,6 +19,7 @@ use Cake\I18n\Time;
 use Cake\ORM\Entity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\Admin\AppController;
+use Tools\Filesystem;
 
 /**
  * LinkScanner controller
@@ -44,7 +45,7 @@ class LinkScannerController extends AppController
      */
     public function index(): void
     {
-        $target = add_slash_term((new LinkScanner())->getConfig('target'));
+        $target = (new Filesystem())->addSlashTerm((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
             ->map(function (string $filename) use ($target) {
@@ -69,7 +70,7 @@ class LinkScannerController extends AppController
     public function view($filename): void
     {
         $LinkScanner = new LinkScanner();
-        $LinkScanner = $LinkScanner->import(add_slash_term($LinkScanner->getConfig('target')) . urldecode($filename));
+        $LinkScanner = $LinkScanner->import((new Filesystem())->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');

@@ -20,6 +20,7 @@ use Cake\I18n\Time;
 use Cake\ORM\Entity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\TestSuite\ControllerTestCase;
+use Tools\Filesystem;
 
 /**
  * LinkScannerControllerTest class
@@ -34,7 +35,7 @@ class LinkScannerControllerTest extends ControllerTestCase
     {
         parent::tearDown();
 
-        unlink_recursive((new LinkScanner())->getConfig('target'));
+        (new Filesystem())->unlinkRecursive((new LinkScanner())->getConfig('target'));
     }
 
     /**
@@ -57,8 +58,8 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testIndex()
     {
         $target = (new LinkScanner())->getConfig('target');
-        create_tmp_file('log1', $target);
-        create_tmp_file('log2', $target);
+        (new Filesystem())->createTmpFile('log1', $target);
+        (new Filesystem())->createTmpFile('log2', $target);
 
         $this->get($this->url + ['action' => 'index']);
         $this->assertResponseOkAndNotEmpty();
@@ -81,7 +82,7 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testView()
     {
         $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
-        $target = add_slash_term((new LinkScanner())->getConfig('target')) . basename($origin);
+        $target = (new Filesystem())->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
         copy($origin, $target);
 
         $this->get($this->url + ['action' => 'view', urlencode(basename($target))]);
