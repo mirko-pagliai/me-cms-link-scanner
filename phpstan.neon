@@ -1,0 +1,43 @@
+parameters:
+    level: 6
+
+    paths:
+        - config
+        - src
+        - templates
+        - tests
+
+    bootstrapFiles:
+        - tests/bootstrap.php
+
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false
+
+    excludes_analyse:
+        - tests/test_app/
+
+    ignoreErrors:
+        - '#^Constant [\w\_]+ not found\.$#'
+        - '#^Call to an undefined method Cake\\(Controller\\(Controller|Component\\(Auth|Flash)Component)|Datasource\\RepositoryInterface|Core\\PluginApplicationInterface|Http\\ServerRequest|ORM\\Association\\BelongsToMany)#'
+
+        -
+            message: '#^Access to protected property LinkScanner\\Utility\\LinkScanner#'
+            path: src
+
+        -
+            message: '#^Access to an undefined property MeCmsLinkScanner\\View\\Helper\\MenuHelper#'
+            path: src
+
+        -
+            message: '#^(Undefined variable: \$this|Variable \$\w+ might not be defined\.)$#'
+            path: templates
+
+        -
+            message: '#^(Access|Call) to an undefined (property|method) ([\w\\]+\|)?PHPUnit\\Framework\\MockObject\\MockObject#'
+            path: tests/TestCase
+
+        -
+            message: '#no (return )?typehint specified\.$#'
+            path: tests/TestCase
+
