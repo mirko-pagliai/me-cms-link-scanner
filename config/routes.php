@@ -14,6 +14,7 @@ declare(strict_types=1);
  */
 
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Route\DashedRoute;
 
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
