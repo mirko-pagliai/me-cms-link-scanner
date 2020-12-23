@@ -19,6 +19,12 @@
     </projectFiles>
 
     <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <file name="tests/TestCase/I18nTest.php" />
+            </errorLevel>
+        </InternalMethod>
+
         <MoreSpecificImplementedParamType>
             <errorLevel type="suppress">
                 <file name="src/Controller/Admin/LinkScannerController.php" />
