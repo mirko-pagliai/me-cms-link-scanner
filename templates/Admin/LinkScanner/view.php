@@ -14,7 +14,7 @@ declare(strict_types=1);
  */
 
 $this->extend('MeCms./Admin/common/view');
-$this->assign('title', __d('me_cms_link_scanner', '{0} log {1}', 'LinkScanner', $filename));
+$this->assign('title', __d('me_cms/link_scanner', '{0} log {1}', 'LinkScanner', $filename));
 
 $isRedirectResults = $results->filter(function ($row) {
     return $row->isRedirect();
@@ -25,22 +25,22 @@ $isNotOkResults = $results->filter(function ($row) {
 ?>
 
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'Full base url') ?>:</strong> <?= $fullBaseUrl ?>
+    <strong><?= __d('me_cms/link_scanner', 'Full base url') ?>:</strong> <?= $fullBaseUrl ?>
 </p>
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'End time') ?>:</strong> <?= $endTime ?>
+    <strong><?= __d('me_cms/link_scanner', 'End time') ?>:</strong> <?= $endTime ?>
 </p>
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'Elapsed time') ?>:</strong> <?= $elapsedTime ?>
+    <strong><?= __d('me_cms/link_scanner', 'Elapsed time') ?>:</strong> <?= $elapsedTime ?>
 </p>
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'Redirect links') ?>:</strong> <?= $isRedirectResults->count() ?>
+    <strong><?= __d('me_cms/link_scanner', 'Redirect links') ?>:</strong> <?= $isRedirectResults->count() ?>
 </p>
 <p class="mb-0">
-    <strong><?= __d('me_cms_link_scanner', 'Invalid links') ?>:</strong> <?= $isNotOkResults->count() ?>
+    <strong><?= __d('me_cms/link_scanner', 'Invalid links') ?>:</strong> <?= $isNotOkResults->count() ?>
 </p>
 <p>
-    <strong><?= __d('me_cms_link_scanner', 'Total scanned links') ?>:</strong> <?= $results->count() ?>
+    <strong><?= __d('me_cms/link_scanner', 'Total scanned links') ?>:</strong> <?= $results->count() ?>
 </p>
 
 <?php
@@ -56,20 +56,20 @@ if ($this->request->getQuery('show') === 'invalid') {
     <div class="btn-group btn-group-sm" role="group">
         <?php
         echo $this->Html->button(
-            __d('me_cms_link_scanner', 'Show all'),
+            __d('me_cms/link_scanner', 'Show all'),
             [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
             ['class' => 'btn-primary']
         );
         if ($isRedirectResults->count()) {
             echo $this->Html->button(
-                __d('me_cms_link_scanner', 'Show redirects'),
+                __d('me_cms/link_scanner', 'Show redirects'),
                 [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
                 ['class' => 'btn-primary']
             );
         }
         if ($isNotOkResults->count()) {
             echo $this->Html->button(
-                __d('me_cms_link_scanner', 'Show invalid'),
+                __d('me_cms/link_scanner', 'Show invalid'),
                 [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
                 ['class' => 'btn-primary']
             );
@@ -82,10 +82,10 @@ if ($this->request->getQuery('show') === 'invalid') {
 <table class="table table-striped">
     <thead>
         <tr>
-            <th><?= __d('me_cms_link_scanner', 'Url') ?></th>
-            <th><?= __d('me_cms_link_scanner', 'Type') ?></th>
-            <th class="text-center"><?= __d('me_cms_link_scanner', 'Code') ?></th>
-            <th class="text-center text-nowrap"><?= __d('me_cms_link_scanner', 'External?') ?></th>
+            <th><?= __d('me_cms/link_scanner', 'Url') ?></th>
+            <th><?= __d('me_cms/link_scanner', 'Type') ?></th>
+            <th class="text-center"><?= __d('me_cms/link_scanner', 'Code') ?></th>
+            <th class="text-center text-nowrap"><?= __d('me_cms/link_scanner', 'External?') ?></th>
         </tr>
     </thead>
     <tbody>
@@ -97,7 +97,7 @@ if ($this->request->getQuery('show') === 'invalid') {
                 </code>
                 <?php if ($row->get('referer')) : ?>
                     <div class="small text-truncate">
-                        <?= __d('me_cms_link_scanner', 'Referer: {0}', $this->Text->truncate($row->get('referer'), 100)) ?>
+                        <?= __d('me_cms/link_scanner', 'Referer: {0}', $this->Text->truncate($row->get('referer'), 100)) ?>
                     </div>
                 <?php endif; ?>
                 <?php
@@ -107,7 +107,7 @@ if ($this->request->getQuery('show') === 'invalid') {
                     'target' => '_blank',
                 ]);
                 if ($row->get('referer')) {
-                    $actions[] = $this->Html->link(__d('me_cms_link_scanner', 'Open referer'), $fullBaseUrl . $row->get('referer'), [
+                    $actions[] = $this->Html->link(__d('me_cms/link_scanner', 'Open referer'), $fullBaseUrl . $row->get('referer'), [
                         'icon' => 'external-link-alt',
                         'target' => '_blank',
                     ]);

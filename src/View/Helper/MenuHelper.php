@@ -53,13 +53,13 @@ class MenuHelper extends Helper
             return [];
         }
 
-        $links[] = [__d('me_cms_link_scanner', 'Link scanner'), [
+        $links[] = [__d('me_cms/link_scanner', 'Link scanner'), [
             'controller' => 'LinkScanner',
             'action' => 'index',
             'plugin' => 'MeCms/LinkScanner',
             'prefix' => ADMIN_PREFIX,
         ]];
 
-        return [$links, __d('me_cms_link_scanner', 'Link scanner'), ['icon' => 'link'], ['LinkScanner']];
+        return [$links, __d('me_cms/link_scanner', 'Link scanner'), ['icon' => 'link'], ['LinkScanner']];
     }
 }

@@ -29,7 +29,7 @@ class I18nTest extends TestCase
      */
     public function testI18nConstant()
     {
-        $translator = I18n::getTranslator('me_cms_link_scanner', 'it');
+        $translator = I18n::getTranslator('me_cms/link_scanner', 'it');
         $this->assertEquals('Ultima modifica', $translator->translate('Last modification'));
     }
 }
