@@ -14,7 +14,7 @@
         "php": ">=7.2",
         "dereuromark/cakephp-feed": "^2.0",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
-        "mirko-pagliai/me-cms": "^2.29",
+        "mirko-pagliai/me-cms": "^2.29.4",
         "mirko-pagliai/php-tools": "^1.4.5"
     },
     "require-dev": {
