@@ -13,13 +13,13 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Cake\Routing\RouteBuilder;
 use Cake\Routing\Route\DashedRoute;
+use Cake\Routing\RouteBuilder;
 
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
-$routes->plugin('MeCmsLinkScanner', ['path' => '/me-cms-link-scanner'], function (RouteBuilder $routes) {
+$routes->plugin('MeCms/LinkScanner', function (RouteBuilder $routes) {
     $routes->prefix(ADMIN_PREFIX, function (RouteBuilder $routes) {
         $routes->fallbacks('DashedRoute');
     });

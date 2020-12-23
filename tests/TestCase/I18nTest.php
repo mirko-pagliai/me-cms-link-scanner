@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase;
+namespace MeCms\LinkScanner\Test\TestCase;
 
 use Cake\I18n\I18n;
 use MeTools\TestSuite\TestCase;

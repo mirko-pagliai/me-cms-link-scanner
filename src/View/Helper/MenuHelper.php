@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  * @see         \MeCms\View\Helper\MenuBuilderHelper
  */
-namespace MeCmsLinkScanner\View\Helper;
+namespace MeCms\LinkScanner\View\Helper;
 
 use Cake\View\Helper;
 
@@ -56,7 +56,7 @@ class MenuHelper extends Helper
         $links[] = [__d('me_cms_link_scanner', 'Link scanner'), [
             'controller' => 'LinkScanner',
             'action' => 'index',
-            'plugin' => 'MeCmsLinkScanner',
+            'plugin' => 'MeCms/LinkScanner',
             'prefix' => ADMIN_PREFIX,
         ]];
 

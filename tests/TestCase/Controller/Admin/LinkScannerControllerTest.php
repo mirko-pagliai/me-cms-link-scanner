@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase\Controller\Admin;
+namespace MeCms\LinkScanner\Test\TestCase\Controller\Admin;
 
 use Cake\Collection\Collection;
 use Cake\I18n\Time;

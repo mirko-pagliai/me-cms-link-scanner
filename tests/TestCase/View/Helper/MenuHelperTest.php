@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase\View\Helper;
+namespace MeCms\LinkScanner\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
 use MeTools\View\Helper\HtmlHelper;

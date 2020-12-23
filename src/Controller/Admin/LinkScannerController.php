@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeCmsLinkScanner\Controller\Admin;
+namespace MeCms\LinkScanner\Controller\Admin;
 
 use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
