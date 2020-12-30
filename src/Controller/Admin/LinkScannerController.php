@@ -17,6 +17,7 @@ namespace MeCmsLinkScanner\Controller\Admin;
 use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
 use Cake\ORM\Entity;
+use LinkScanner\ScanEntity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\Admin\AppController;
 use Tools\Filesystem;
@@ -48,7 +49,7 @@ class LinkScannerController extends AppController
         $target = (new Filesystem())->addSlashTerm((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
-            ->map(function (string $filename) use ($target) {
+            ->map(function (string $filename) use ($target): Entity {
                 $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
@@ -76,7 +77,7 @@ class LinkScannerController extends AppController
         $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
         $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 
-        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex) {
+        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex): ScanEntity {
             foreach (['url', 'referer'] as $name) {
                 $result->set($name, $result->get($name) ? preg_replace($fullBaseUrlRegex, '/', $result->get($name)) : null);
             }
