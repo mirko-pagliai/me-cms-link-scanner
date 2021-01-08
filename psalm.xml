@@ -19,11 +19,29 @@
     </projectFiles>
 
     <issueHandlers>
+        <InternalMethod>
+            <errorLevel type="suppress">
+                <directory name="tests/TestCase" />
+            </errorLevel>
+        </InternalMethod>
+
+        <InvalidScope>
+            <errorLevel type="suppress">
+                <directory name="templates" />
+            </errorLevel>
+        </InvalidScope>
+
         <MoreSpecificImplementedParamType>
             <errorLevel type="suppress">
                 <file name="src/Controller/Admin/LinkScannerController.php" />
             </errorLevel>
         </MoreSpecificImplementedParamType>
+        
+        <NoInterfaceProperties>
+            <errorLevel type="suppress">
+                <directory name="tests/TestCase" />
+            </errorLevel>
+        </NoInterfaceProperties>
 
         <UndefinedMethod>
             <errorLevel type="suppress">
@@ -37,23 +55,11 @@
             </errorLevel>
         </UndefinedInterfaceMethod>
 
-        <InvalidScope>
-            <errorLevel type="suppress">
-                <directory name="templates" />
-            </errorLevel>
-        </InvalidScope>
-
         <UndefinedGlobalVariable>
             <errorLevel type="suppress">
                 <directory name="templates" />
             </errorLevel>
         </UndefinedGlobalVariable>
-
-        <NoInterfaceProperties>
-            <errorLevel type="suppress">
-                <directory name="tests/TestCase" />
-            </errorLevel>
-        </NoInterfaceProperties>
 
         <UndefinedConstant errorLevel="suppress" />
     </issueHandlers>
