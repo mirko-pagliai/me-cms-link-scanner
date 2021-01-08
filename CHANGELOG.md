@@ -5,7 +5,7 @@
 
 ## 1.1 branch
 ### 1.1.2
-* updated for `php-tools` 1.4.5;
+* updated for `me-cms` 2.29.5 and `php-tools` 1.4.5;
 * added `phpstan`.
 
 ### 1.1.1

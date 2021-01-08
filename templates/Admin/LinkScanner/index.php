@@ -27,7 +27,7 @@ $this->assign('title', __d('me_cms/link_scanner', '{0} logs', 'LinkScanner'));
         <tr>
             <td>
                 <strong>
-                    <?= $this->Html->link($log->filename, ['action' => 'view', $log->get('filename')]) ?>
+                    <?= $this->Html->link($log->get('filename'), ['action' => 'view', $log->get('filename')]) ?>
                 </strong>
             </td>
             <td class="text-nowrap text-center">
