@@ -4,4 +4,6 @@
     <file>.</file>
 
     <rule ref="./vendor/mirko-pagliai/php-tools/sniffer-ruleset.xml"/>
+
+    <exclude-pattern>/bin</exclude-pattern>
 </ruleset>

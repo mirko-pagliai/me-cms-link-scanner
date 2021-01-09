@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * This file is part of me-cms-link-scanner.
  *
@@ -10,6 +12,7 @@
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
+
 $this->extend('MeCms./Admin/common/index');
 $this->assign('title', __d('me_cms_link_scanner', '{0} logs', 'LinkScanner'));
 ?>
@@ -24,7 +27,7 @@ $this->assign('title', __d('me_cms_link_scanner', '{0} logs', 'LinkScanner'));
         <tr>
             <td>
                 <strong>
-                    <?= $this->Html->link($log->filename, ['action' => 'view', $log->get('filename')]) ?>
+                    <?= $this->Html->link($log->get('filename'), ['action' => 'view', $log->get('filename')]) ?>
                 </strong>
             </td>
             <td class="text-nowrap text-center">

@@ -17,8 +17,10 @@ namespace MeCmsLinkScanner\Controller\Admin;
 use Cake\Filesystem\Folder;
 use Cake\I18n\Time;
 use Cake\ORM\Entity;
+use LinkScanner\ScanEntity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\Admin\AppController;
+use Tools\Filesystem;
 
 /**
  * LinkScanner controller
@@ -44,10 +46,10 @@ class LinkScannerController extends AppController
      */
     public function index(): void
     {
-        $target = add_slash_term((new LinkScanner())->getConfig('target'));
+        $target = (new Filesystem())->addSlashTerm((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
-            ->map(function (string $filename) use ($target) {
+            ->map(function (string $filename) use ($target): Entity {
                 $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
@@ -69,13 +71,13 @@ class LinkScannerController extends AppController
     public function view($filename): void
     {
         $LinkScanner = new LinkScanner();
-        $LinkScanner = $LinkScanner->import(add_slash_term($LinkScanner->getConfig('target')) . urldecode($filename));
+        $LinkScanner = $LinkScanner->import((new Filesystem())->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));
         $endTime = Time::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
         $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 
-        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex) {
+        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex): ScanEntity {
             foreach (['url', 'referer'] as $name) {
                 $result->set($name, $result->get($name) ? preg_replace($fullBaseUrlRegex, '/', $result->get($name)) : null);
             }
