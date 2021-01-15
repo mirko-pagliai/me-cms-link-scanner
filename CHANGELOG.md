@@ -1,4 +1,8 @@
 # 1.x branch
+## 1.2 branch
+### 1.2.0
+* changed namespace: `MeCms\LinkScanner`. The new i18n domain is `me_cms/link_scanner`.
+
 ## 1.1 branch
 ### 1.1.2
 * updated for `me-cms` 2.29.5 and `php-tools` 1.4.5;

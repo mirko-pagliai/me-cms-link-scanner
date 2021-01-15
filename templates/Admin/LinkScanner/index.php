@@ -14,14 +14,14 @@ declare(strict_types=1);
  */
 
 $this->extend('MeCms./Admin/common/index');
-$this->assign('title', __d('me_cms_link_scanner', '{0} logs', 'LinkScanner'));
+$this->assign('title', __d('me_cms/link_scanner', '{0} logs', 'LinkScanner'));
 ?>
 
 <table class="table table-striped">
     <tr>
         <th><?= I18N_FILENAME ?></th>
-        <th class="min-width text-center"><?= __d('me_cms_link_scanner', 'Last modification') ?></th>
-        <th class="min-width text-center"><?= __d('me_cms_link_scanner', 'File size') ?></th>
+        <th class="min-width text-center"><?= __d('me_cms/link_scanner', 'Last modification') ?></th>
+        <th class="min-width text-center"><?= __d('me_cms/link_scanner', 'File size') ?></th>
     </tr>
     <?php foreach ($logs as $log) : ?>
         <tr>

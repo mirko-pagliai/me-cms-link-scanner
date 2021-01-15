@@ -19,7 +19,7 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
-$routes->plugin('MeCmsLinkScanner', function (RouteBuilder $routes) {
+$routes->plugin('MeCms/LinkScanner', function (RouteBuilder $routes) {
     $routes->prefix(ADMIN_PREFIX, function (RouteBuilder $routes) {
         $routes->fallbacks('DashedRoute');
     });

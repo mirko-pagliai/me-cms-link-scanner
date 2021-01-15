@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase;
+namespace MeCms\LinkScanner\Test\TestCase;
 
 use Cake\I18n\I18n;
 use MeTools\TestSuite\TestCase;
@@ -29,7 +29,7 @@ class I18nTest extends TestCase
      */
     public function testI18nConstant()
     {
-        $translator = I18n::getTranslator('me_cms_link_scanner', 'it');
+        $translator = I18n::getTranslator('me_cms/link_scanner', 'it');
         $this->assertEquals('Ultima modifica', $translator->translate('Last modification'));
     }
 }

@@ -12,7 +12,7 @@ declare(strict_types=1);
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace MeCmsLinkScanner\View\View;
+namespace MeCms\LinkScanner\View\View;
 
 use MeCms\View\View\AppView as MeCmsAppView;
 

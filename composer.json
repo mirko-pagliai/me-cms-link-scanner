@@ -22,23 +22,23 @@
     },
     "autoload": {
         "psr-4": {
-            "MeCmsLinkScanner\\": "src"
+            "MeCms\\LinkScanner\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "MeCmsLinkScanner\\Test\\": "tests",
+            "MeCmsLink\\Scanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
     },
     "scripts": {
+        "i18n-extract": "bin/cake i18n extract --paths config,src,templates --relative-paths --overwrite -q",
         "check": [
             "@cs-check",
             "@update-lowest",
             "@test",
             "@composer update",
             "@test",
-            "@stan-setup",
             "@stan"
         ],
         "cs-check": "phpcs --standard=phpcs.xml.dist",
@@ -48,6 +48,7 @@
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar",
         "stan": [
+            "@stan-setup",
             "@phpstan",
             "@psalm"
         ],
