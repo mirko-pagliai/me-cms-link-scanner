@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase\Controller\Admin;
+namespace MeCms\LinkScanner\Test\TestCase\Controller\Admin;
 
 use Cake\Collection\Collection;
 use Cake\I18n\Time;
@@ -87,7 +87,7 @@ class LinkScannerControllerTest extends ControllerTestCase
 
         $this->get($this->url + ['action' => 'view', urlencode(basename($target))]);
         $this->assertResponseOkAndNotEmpty();
-        $this->assertRegExp('/^\d+ seconds$/', $this->viewVariable('elapsedTime'));
+        $this->assertMatchesRegularExpression('/^\d+ seconds$/', $this->viewVariable('elapsedTime'));
         $this->assertInstanceOf(Time::class, $this->viewVariable('endTime'));
         $this->assertSame(basename($target), $this->viewVariable('filename'));
         $this->assertSame('http://google.com', $this->viewVariable('fullBaseUrl'));

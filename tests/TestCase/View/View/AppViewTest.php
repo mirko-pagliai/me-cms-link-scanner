@@ -13,10 +13,10 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace MeCmsLinkScanner\Test\TestCase\View\View;
+namespace MeCms\LinkScanner\Test\TestCase\View\View;
 
 use Cake\Http\ServerRequest;
-use MeCmsLinkScanner\View\View\AppView;
+use MeCms\LinkScanner\View\View\AppView;
 use MeTools\TestSuite\TestCase;
 
 /**

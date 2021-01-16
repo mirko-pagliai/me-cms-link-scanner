@@ -1,11 +1,11 @@
-# LANGUAGE translation of me-cms-link-scanner
-# Copyright Mirko Pagliai <mirko.pagliai@gmail.com>
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2020-01-17 11:40+0100\n"
+"POT-Creation-Date: 2020-12-23 14:04+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,84 +14,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: View/Helper/MenuHelper.php:54
-#: View/Helper/MenuHelper.php:61
+#: ./View/Helper/MenuHelper.php:56
+#: ./View/Helper/MenuHelper.php:63
 msgid "Link scanner"
 msgstr ""
 
-#: Admin/LinkScanner/index.php:14
+#: ./Admin/LinkScanner/index.php:17
 msgid "{0} logs"
 msgstr ""
 
-#: Admin/LinkScanner/index.php:20
+#: ./Admin/LinkScanner/index.php:23
 msgid "Last modification"
 msgstr ""
 
-#: Admin/LinkScanner/index.php:21
+#: ./Admin/LinkScanner/index.php:24
 msgid "File size"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:14
+#: ./Admin/LinkScanner/view.php:17
 msgid "{0} log {1}"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:25
+#: ./Admin/LinkScanner/view.php:28
 msgid "Full base url"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:28
+#: ./Admin/LinkScanner/view.php:31
 msgid "End time"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:31
+#: ./Admin/LinkScanner/view.php:34
 msgid "Elapsed time"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:34
+#: ./Admin/LinkScanner/view.php:37
 msgid "Redirect links"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:37
+#: ./Admin/LinkScanner/view.php:40
 msgid "Invalid links"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:40
+#: ./Admin/LinkScanner/view.php:43
 msgid "Total scanned links"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:56
+#: ./Admin/LinkScanner/view.php:59
 msgid "Show all"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:62
+#: ./Admin/LinkScanner/view.php:65
 msgid "Show redirects"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:69
+#: ./Admin/LinkScanner/view.php:72
 msgid "Show invalid"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:82
+#: ./Admin/LinkScanner/view.php:85
 msgid "Url"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:83
+#: ./Admin/LinkScanner/view.php:86
 msgid "Type"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:84
+#: ./Admin/LinkScanner/view.php:87
 msgid "Code"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:85
+#: ./Admin/LinkScanner/view.php:88
 msgid "External?"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:97
+#: ./Admin/LinkScanner/view.php:100
 msgid "Referer: {0}"
 msgstr ""
 
-#: Admin/LinkScanner/view.php:107
+#: ./Admin/LinkScanner/view.php:110
 msgid "Open referer"
 msgstr ""
 

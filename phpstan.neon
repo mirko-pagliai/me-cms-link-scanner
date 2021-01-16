@@ -26,7 +26,7 @@ parameters:
             path: src
 
         -
-            message: '#^Access to an undefined property MeCmsLinkScanner\\View\\Helper\\MenuHelper#'
+            message: '#^Access to an undefined property MeCms\\LinkScanner\\View\\Helper\\MenuHelper#'
             path: src
 
         -
