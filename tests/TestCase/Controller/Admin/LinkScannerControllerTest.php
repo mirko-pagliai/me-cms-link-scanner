@@ -42,7 +42,7 @@ class LinkScannerControllerTest extends ControllerTestCase
      * Tests for `isAuthorized()` method
      * @test
      */
-    public function testIsAuthorized()
+    public function testIsAuthorized(): void
     {
         $this->assertGroupsAreAuthorized([
             'admin' => true,
@@ -55,7 +55,7 @@ class LinkScannerControllerTest extends ControllerTestCase
      * Tests for `index()` method
      * @test
      */
-    public function testIndex()
+    public function testIndex(): void
     {
         $target = (new LinkScanner())->getConfig('target');
         (new Filesystem())->createTmpFile('log1', $target);
@@ -79,7 +79,7 @@ class LinkScannerControllerTest extends ControllerTestCase
      * Tests for `view()` method
      * @test
      */
-    public function testView()
+    public function testView(): void
     {
         $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
         $target = (new Filesystem())->concatenate((new LinkScanner())->getConfig('target'), basename($origin));

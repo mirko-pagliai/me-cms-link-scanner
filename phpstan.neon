@@ -28,8 +28,3 @@ parameters:
         -
             message: '#^(Undefined variable: \$this|Variable \$\w+ might not be defined\.)$#'
             path: templates
-
-        -
-            message: '#no (return )?typehint specified\.$#'
-            path: tests/TestCase
-

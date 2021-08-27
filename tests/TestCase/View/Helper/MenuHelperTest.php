@@ -51,7 +51,7 @@ class MenuHelperTest extends HelperTestCase
      * Tests for `scanner()` method
      * @test
      */
-    public function testScanner()
+    public function testScanner(): void
     {
         $this->assertEmpty($this->Helper->scanner());
 
