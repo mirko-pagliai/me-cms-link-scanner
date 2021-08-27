@@ -24,6 +24,7 @@ use Tools\Filesystem;
 
 /**
  * LinkScanner controller
+ * @property \MeCms\Controller\Component\AuthComponent $Auth
  */
 class LinkScannerController extends AppController
 {
@@ -53,7 +54,7 @@ class LinkScannerController extends AppController
                 $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
-                    'filetime' => Time::createFromTimestamp(filemtime($path)),
+                    'filetime' => Time::createFromTimestamp(filemtime($path) ?: 0),
                     'filesize' => filesize($path),
                 ]);
             })

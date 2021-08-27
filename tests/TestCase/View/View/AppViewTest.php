@@ -28,7 +28,7 @@ class AppViewTest extends TestCase
      * Tests for `renderLayout()` method
      * @test
      */
-    public function testRenderLayout()
+    public function testRenderLayout(): void
     {
         $request = new ServerRequest();
         $view = new AppView($request->withEnv('REQUEST_URI', '/'));
