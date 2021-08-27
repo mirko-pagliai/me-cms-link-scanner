@@ -1,0 +1,57 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to protected property LinkScanner\\\\Utility\\\\LinkScanner\\:\\:\\$ResultScan\\.$#"
+			count: 1
+			path: src/Controller/Admin/LinkScannerController.php
+
+		-
+			message: "#^Access to protected property LinkScanner\\\\Utility\\\\LinkScanner\\:\\:\\$endTime\\.$#"
+			count: 1
+			path: src/Controller/Admin/LinkScannerController.php
+
+		-
+			message: "#^Access to protected property LinkScanner\\\\Utility\\\\LinkScanner\\:\\:\\$startTime\\.$#"
+			count: 1
+			path: src/Controller/Admin/LinkScannerController.php
+
+		-
+			message: "#^Variable \\$logs might not be defined\\.$#"
+			count: 1
+			path: templates/Admin/LinkScanner/index.php
+
+		-
+			message: "#^Variable \\$this might not be defined\\.$#"
+			count: 4
+			path: templates/Admin/LinkScanner/index.php
+
+		-
+			message: "#^Variable \\$elapsedTime might not be defined\\.$#"
+			count: 1
+			path: templates/Admin/LinkScanner/view.php
+
+		-
+			message: "#^Variable \\$endTime might not be defined\\.$#"
+			count: 1
+			path: templates/Admin/LinkScanner/view.php
+
+		-
+			message: "#^Variable \\$filename might not be defined\\.$#"
+			count: 1
+			path: templates/Admin/LinkScanner/view.php
+
+		-
+			message: "#^Variable \\$fullBaseUrl might not be defined\\.$#"
+			count: 3
+			path: templates/Admin/LinkScanner/view.php
+
+		-
+			message: "#^Variable \\$results might not be defined\\.$#"
+			count: 4
+			path: templates/Admin/LinkScanner/view.php
+
+		-
+			message: "#^Variable \\$this might not be defined\\.$#"
+			count: 16
+			path: templates/Admin/LinkScanner/view.php
+

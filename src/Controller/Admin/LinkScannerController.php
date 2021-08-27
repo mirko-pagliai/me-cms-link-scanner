@@ -24,6 +24,7 @@ use Tools\Filesystem;
 
 /**
  * LinkScanner controller
+ * @property \MeCms\Controller\Component\AuthComponent $Auth
  */
 class LinkScannerController extends AppController
 {

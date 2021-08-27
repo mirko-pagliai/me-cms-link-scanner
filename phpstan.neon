@@ -1,3 +1,6 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     level: 6
 
@@ -9,6 +12,8 @@ parameters:
 
     bootstrapFiles:
         - tests/bootstrap.php
+        - vendor/mirko-pagliai/cakephp-thumber/config/bootstrap.php
+        - vendor/mirko-pagliai/me-cms/config/bootstrap.php
 
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
@@ -16,15 +21,3 @@ parameters:
 
     excludes_analyse:
         - tests/test_app/
-
-    ignoreErrors:
-        - '#^Constant [\w\_]+ not found\.$#'
-        - '#^Call to an undefined method Cake\\(Controller\\(Controller|Component\\(Auth|Flash)Component)|Datasource\\RepositoryInterface|Core\\PluginApplicationInterface|Http\\ServerRequest|ORM\\Association\\BelongsToMany)#'
-
-        -
-            message: '#^Access to protected property LinkScanner\\Utility\\LinkScanner#'
-            path: src
-
-        -
-            message: '#^(Undefined variable: \$this|Variable \$\w+ might not be defined\.)$#'
-            path: templates
