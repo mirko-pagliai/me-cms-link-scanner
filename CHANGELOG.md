@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.2 branch
+### 1.2.1
+* improvement of function descriptions and tags, increased the level of `phpstan`.
+
 ### 1.2.0
 * changed namespace: `MeCms\LinkScanner`. The new i18n domain is `me_cms/link_scanner`;
 * ready for `phpunit` 9.0.
