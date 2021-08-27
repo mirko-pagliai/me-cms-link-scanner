@@ -26,16 +26,8 @@ parameters:
             path: src
 
         -
-            message: '#^Access to an undefined property MeCms\\LinkScanner\\View\\Helper\\MenuHelper#'
-            path: src
-
-        -
             message: '#^(Undefined variable: \$this|Variable \$\w+ might not be defined\.)$#'
             path: templates
-
-        -
-            message: '#^(Access|Call) to an undefined (property|method) ([\w\\]+\|)?PHPUnit\\Framework\\MockObject\\MockObject#'
-            path: tests/TestCase
 
         -
             message: '#no (return )?typehint specified\.$#'

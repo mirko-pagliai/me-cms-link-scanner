@@ -20,6 +20,7 @@ use MeTools\View\Helper\HtmlHelper;
 
 /**
  * MenuHelperTest class
+ * @property \MeCms\LinkScanner\View\Helper\MenuHelper $Helper
  */
 class MenuHelperTest extends HelperTestCase
 {
