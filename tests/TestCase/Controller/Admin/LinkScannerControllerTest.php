@@ -35,7 +35,7 @@ class LinkScannerControllerTest extends ControllerTestCase
     {
         parent::tearDown();
 
-        (new Filesystem())->unlinkRecursive((new LinkScanner())->getConfig('target'));
+        Filesystem::instance()->unlinkRecursive((new LinkScanner())->getConfig('target'));
     }
 
     /**
@@ -58,8 +58,8 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testIndex(): void
     {
         $target = (new LinkScanner())->getConfig('target');
-        (new Filesystem())->createTmpFile('log1', $target);
-        (new Filesystem())->createTmpFile('log2', $target);
+        Filesystem::instance()->createTmpFile('log1', $target);
+        Filesystem::instance()->createTmpFile('log2', $target);
 
         $this->get($this->url + ['action' => 'index']);
         $this->assertResponseOkAndNotEmpty();
@@ -82,7 +82,7 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testView(): void
     {
         $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
-        $target = (new Filesystem())->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
+        $target = Filesystem::instance()->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
         copy($origin, $target);
 
         $this->get($this->url + ['action' => 'view', urlencode(basename($target))]);
