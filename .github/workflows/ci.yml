@@ -115,7 +115,7 @@ jobs:
     name: Windows - PHP 8.0
 
     env:
-      EXTENSIONS: mbstring, intl
+      EXTENSIONS: mbstring, intl, gd
       PHP_VERSION: '8.0'
 
     steps:
