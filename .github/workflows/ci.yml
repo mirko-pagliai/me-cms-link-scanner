@@ -115,7 +115,7 @@ jobs:
     name: Windows - PHP 8.0
 
     env:
-      EXTENSIONS: mbstring, intl, pdo_mysql, gd
+      EXTENSIONS: mbstring, intl
       PHP_VERSION: '8.0'
 
     steps:
@@ -128,11 +128,6 @@ jobs:
         extensions: ${{ env.EXTENSIONS }}
         ini-values: apc.enable_cli = 1, extension = php_fileinfo.dll
         coverage: none
-
-    - uses: ankane/setup-mysql@v1
-      with:
-        database: test
-        mysql-version: 5.7
 
     - name: Cache Composer packages
       id: composer-cache
@@ -147,7 +142,5 @@ jobs:
       run: composer update
 
     - name: Run PHPUnit
-      env:
-        db_dsn: 'mysql://root@localhost/test?quoteIdentifiers=true'
       run: |
           vendor/bin/phpunit --verbose
