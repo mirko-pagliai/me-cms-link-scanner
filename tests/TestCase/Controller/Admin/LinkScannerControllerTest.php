@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace MeCms\LinkScanner\Test\TestCase\Controller\Admin;
 
 use Cake\Collection\Collection;
-use Cake\I18n\Time;
+use Cake\I18n\I18nDateTimeInterface;
 use Cake\ORM\Entity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\TestSuite\ControllerTestCase;
@@ -35,7 +35,7 @@ class LinkScannerControllerTest extends ControllerTestCase
     {
         parent::tearDown();
 
-        (new Filesystem())->unlinkRecursive((new LinkScanner())->getConfig('target'));
+        Filesystem::instance()->unlinkRecursive((new LinkScanner())->getConfig('target'));
     }
 
     /**
@@ -58,8 +58,8 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testIndex(): void
     {
         $target = (new LinkScanner())->getConfig('target');
-        (new Filesystem())->createTmpFile('log1', $target);
-        (new Filesystem())->createTmpFile('log2', $target);
+        Filesystem::instance()->createTmpFile('log1', $target);
+        Filesystem::instance()->createTmpFile('log2', $target);
 
         $this->get($this->url + ['action' => 'index']);
         $this->assertResponseOkAndNotEmpty();
@@ -70,7 +70,7 @@ class LinkScannerControllerTest extends ControllerTestCase
 
         foreach ($logs as $log) {
             $this->assertNotEmpty($log->get('filename'));
-            $this->assertInstanceOf(Time::class, $log->get('filetime'));
+            $this->assertInstanceOf(I18nDateTimeInterface::class, $log->get('filetime'));
             $this->assertGreaterThan(0, $log->get('filesize'));
         }
     }
@@ -82,13 +82,13 @@ class LinkScannerControllerTest extends ControllerTestCase
     public function testView(): void
     {
         $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
-        $target = (new Filesystem())->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
+        $target = Filesystem::instance()->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
         copy($origin, $target);
 
         $this->get($this->url + ['action' => 'view', urlencode(basename($target))]);
         $this->assertResponseOkAndNotEmpty();
         $this->assertMatchesRegularExpression('/^\d+ seconds$/', $this->viewVariable('elapsedTime'));
-        $this->assertInstanceOf(Time::class, $this->viewVariable('endTime'));
+        $this->assertInstanceOf(I18nDateTimeInterface::class, $this->viewVariable('endTime'));
         $this->assertSame(basename($target), $this->viewVariable('filename'));
         $this->assertSame('http://google.com', $this->viewVariable('fullBaseUrl'));
         $this->assertInstanceOf(Collection::class, $this->viewVariable('results'));

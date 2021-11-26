@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace MeCms\LinkScanner\Controller\Admin;
 
 use Cake\Filesystem\Folder;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 use LinkScanner\ScanEntity;
 use LinkScanner\Utility\LinkScanner;
@@ -47,14 +47,14 @@ class LinkScannerController extends AppController
      */
     public function index(): void
     {
-        $target = (new Filesystem())->addSlashTerm((new LinkScanner())->getConfig('target'));
+        $target = Filesystem::instance()->addSlashTerm((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
             ->map(function (string $filename) use ($target): Entity {
                 $path = $target . $filename;
 
                 return new Entity(compact('filename') + [
-                    'filetime' => Time::createFromTimestamp(filemtime($path) ?: 0),
+                    'filetime' => FrozenTime::createFromTimestamp(filemtime($path) ?: 0),
                     'filesize' => filesize($path),
                 ]);
             })
@@ -72,9 +72,9 @@ class LinkScannerController extends AppController
     public function view($filename): void
     {
         $LinkScanner = new LinkScanner();
-        $LinkScanner = $LinkScanner->import((new Filesystem())->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));
-        $endTime = Time::createFromTimestamp($LinkScanner->endTime);
-        $elapsedTime = $endTime->diffForHumans(Time::createFromTimestamp($LinkScanner->startTime), true);
+        $LinkScanner = $LinkScanner->import(Filesystem::instance()->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));
+        $endTime = FrozenTime::createFromTimestamp($LinkScanner->endTime);
+        $elapsedTime = $endTime->diffForHumans(FrozenTime::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
         $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 

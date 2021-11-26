@@ -14,7 +14,7 @@
         "php": ">=7.2",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
         "mirko-pagliai/me-cms": "^2.29.5",
-        "mirko-pagliai/php-tools": "^1.4.5"
+        "mirko-pagliai/php-tools": "^1.4.7"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
@@ -52,7 +52,7 @@
             "@phpstan",
             "@psalm"
         ],
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:^3.18 && mv composer.backup composer.json",
+        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:\"^3.18|^4\" && mv composer.backup composer.json",
         "update-lowest": "@composer update --prefer-lowest"
     }
 }
