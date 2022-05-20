@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
         "mirko-pagliai/me-cms": "^2.29.5",
         "mirko-pagliai/php-tools": "^1.4.7"
@@ -46,7 +46,7 @@
         "test": "rm -f -r /tmp/cake* && phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar",
+        "psalm": "psalm.phar --php-version=8.0",
         "stan": [
             "@stan-setup",
             "@phpstan",
