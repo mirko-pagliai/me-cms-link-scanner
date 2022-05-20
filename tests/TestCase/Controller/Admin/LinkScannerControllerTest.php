@@ -81,7 +81,7 @@ class LinkScannerControllerTest extends ControllerTestCase
      */
     public function testView(): void
     {
-        $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
+        $origin = TESTS . 'examples' . DS . 'results_google.com_1653069209';
         $target = Filesystem::instance()->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
         copy($origin, $target);
 
