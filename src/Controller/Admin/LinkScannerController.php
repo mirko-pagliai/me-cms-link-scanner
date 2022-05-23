@@ -50,14 +50,10 @@ class LinkScannerController extends AppController
         $target = Filesystem::instance()->addSlashTerm((new LinkScanner())->getConfig('target'));
 
         $logs = collection((new Folder($target))->find())
-            ->map(function (string $filename) use ($target): Entity {
-                $path = $target . $filename;
-
-                return new Entity(compact('filename') + [
-                    'filetime' => FrozenTime::createFromTimestamp(filemtime($path) ?: 0),
-                    'filesize' => filesize($path),
-                ]);
-            })
+            ->map(fn(string $filename): Entity => new Entity(compact('filename') + [
+                'filetime' => FrozenTime::createFromTimestamp(filemtime($target . $filename) ?: 0),
+                'filesize' => filesize($target . $filename),
+            ]))
             ->sortBy('filetime');
 
         $this->set(compact('logs'));
@@ -76,16 +72,14 @@ class LinkScannerController extends AppController
         $endTime = FrozenTime::createFromTimestamp($LinkScanner->endTime);
         $elapsedTime = $endTime->diffForHumans(FrozenTime::createFromTimestamp($LinkScanner->startTime), true);
         $fullBaseUrl = rtrim($LinkScanner->getConfig('fullBaseUrl'), '/');
-        $fullBaseUrlRegex = sprintf('/^%s\/?/', preg_quote($fullBaseUrl, '/'));
 
-        $results = $LinkScanner->ResultScan->map(function ($result) use ($fullBaseUrlRegex): ScanEntity {
-            foreach (['url', 'referer'] as $name) {
-                $result->set($name, $result->get($name) ? preg_replace($fullBaseUrlRegex, '/', $result->get($name)) : null);
-            }
+        //Callback. Removes the full base url from some values (`url` and `referer`)
+        $removeFullBase = fn(ScanEntity $result, string $key): ScanEntity => $result->set($key, str_starts_with($result->get($key) ?: '', $fullBaseUrl) ? substr($result->get($key), strlen($fullBaseUrl)) : $result->get($key));
 
-            return $result;
-        })
-        ->sortby('url', SORT_ASC, SORT_NATURAL);
+        $results = $LinkScanner->ResultScan
+            ->map(fn(ScanEntity $result): ScanEntity => $removeFullBase($result, 'url'))
+            ->map(fn(ScanEntity $result): ScanEntity => $removeFullBase($result, 'referer'))
+            ->sortby('url', SORT_ASC, SORT_NATURAL);
 
         $this->set(compact('elapsedTime', 'endTime', 'filename', 'fullBaseUrl', 'results'));
     }
