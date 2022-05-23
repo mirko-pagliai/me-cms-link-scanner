@@ -30,8 +30,8 @@ class LinkScannerController extends AppController
 {
     /**
      * Check if the provided user is authorized for the request
-     * @param array $user The user to check the authorization of. If empty
-     *  the user in the session will be used
+     * @param array|\ArrayAccess|null $user The user to check the authorization
+     *  of. If empty the user in the session will be used
      * @return bool `true` if the user is authorized, otherwise `false`
      * @uses MeCms\Controller\Component\AuthComponent::isGroup()
      */
