@@ -1,6 +1,6 @@
 # 1.x branch
 ## 1.2 branch
-### 1.2.2
+### 1.2.2-RC1
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
 * updated for PHP 8.1 Requires at least PHP 7.4.
 
