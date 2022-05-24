@@ -1,9 +1,10 @@
 # 1.x branch
-## 1.2 branch
-### 1.2.2-RC1
+## 1.3 branch
+### 1.3.0-RC1
 * numerous code adjustments for improvement and adaptation to PHP 7.4 new features;
 * updated for PHP 8.1 Requires at least PHP 7.4.
 
+## 1.2 branch
 ### 1.2.1
 * improvement of function descriptions and tags, increased the level of `phpstan`.
 
