@@ -11,14 +11,13 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
+        "php": ">=7.4",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
-        "mirko-pagliai/me-cms": "^2.29.5",
-        "mirko-pagliai/php-tools": "^1.4.7"
+        "mirko-pagliai/me-cms": "^2.30.7-RC4"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
-        "phpunit/phpunit": "^8.5.12|^9.0|^9.5"
+        "phpunit/phpunit": "^9.1|^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -46,7 +45,7 @@
         "test": "rm -f -r /tmp/cake* && phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
-        "psalm": "psalm.phar",
+        "psalm": "psalm.phar --php-version=8.0",
         "stan": [
             "@stan-setup",
             "@phpstan",

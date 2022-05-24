@@ -24,13 +24,12 @@ class AppView extends MeCmsAppView
     /**
      * Renders a layout. Returns output from _render(). Returns false on
      *  error. Several variables are created for use in layout
-     * @param string $content Content to render in a view, wrapped by the
-     *  surrounding layout
+     * @param string $content Content to render in a template, wrapped by the surrounding layout
      * @param string|null $layout Layout name
      * @return string Rendered output
      * @uses MeCms\View\View\AppView::renderLayout()
      */
-    public function renderLayout($content, $layout = null): string
+    public function renderLayout(string $content, ?string $layout = null): string
     {
         $this->plugin ?: 'MeCms';
 

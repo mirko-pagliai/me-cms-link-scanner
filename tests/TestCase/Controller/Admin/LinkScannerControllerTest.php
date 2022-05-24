@@ -81,7 +81,21 @@ class LinkScannerControllerTest extends ControllerTestCase
      */
     public function testView(): void
     {
-        $origin = TESTS . 'examples' . DS . 'results_google.com_1579535226';
+        $origin = TESTS . 'examples' . DS . 'results_google.com_1653069209';
+
+        //Creates the example file, if it does not exist
+        if (!file_exists($origin)) {
+            $LinkScanner = new LinkScanner();
+            $LinkScanner->setConfig([
+                'cache' => false,
+                'externalLinks' => false,
+                'fullBaseUrl' => 'http://google.com',
+                'maxDepth' => 2,
+                'lockFile' => false,
+            ]);
+            $LinkScanner->scan();
+            $LinkScanner->export($origin);
+        }
         $target = Filesystem::instance()->concatenate((new LinkScanner())->getConfig('target'), basename($origin));
         copy($origin, $target);
 
