@@ -43,7 +43,7 @@ class MenuHelperTest extends HelperTestCase
     protected function buildLinks(array $links): string
     {
         /** @var \MeTools\View\Helper\HtmlHelper $HtmlHelper */
-        $HtmlHelper = $this->getMockForHelper(HtmlHelper::class, null);
+        $HtmlHelper = $this->getMockForHelper(HtmlHelper::class, []);
 
         return implode(PHP_EOL, array_map(fn(array $link): string => $HtmlHelper->link($link[0], $link[1]), $links));
     }

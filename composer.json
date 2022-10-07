@@ -28,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MeCmsLink\\Scanner\\Test\\": "tests",
+            "MeCms\\LinkScanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
     },
