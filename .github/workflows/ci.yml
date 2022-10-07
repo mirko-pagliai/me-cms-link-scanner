@@ -23,7 +23,7 @@ jobs:
             prefer-lowest: 'prefer-lowest'
 
     steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v3
 
         - name: Validate composer.json and composer.lock
           run: composer validate
@@ -65,35 +65,25 @@ jobs:
         - name: Submit code coverage
           if: matrix.php-version == '8.0'
           uses: codecov/codecov-action@v2
-
   cs-stan:
     name: Coding Standard & Static Analysis
     runs-on: ubuntu-latest
 
-    env:
-      PHP_VERSION: '8.0'
-
     steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v3
 
         - name: Setup PHP
           uses: shivammathur/setup-php@v2
           with:
-            php-version: ${{ env.PHP_VERSION }}
+            php-version: '8.0'
             coverage: none
             tools: cs2pr
 
-        - name: Cache Composer packages
-          id: composer-cache
-          uses: actions/cache@v2
-          with:
-            path: vendor
-            key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-            restore-keys: |
-              ${{ runner.os }}-php-
-
         - name: Composer install
-          run: composer stan-setup
+          run: composer update
+
+        - name: Composer show
+          run: composer show
 
         - name: Run PHP CodeSniffer
           continue-on-error: true
@@ -104,12 +94,11 @@ jobs:
 
         - name: Run psalm
           if: success() || failure()
-          run: vendor/bin/psalm.phar --output-format=github --php-version=${{ env.PHP_VERSION }}
+          run: vendor/bin/psalm.phar --output-format=github --php-version=8.0
 
         - name: Run phpstan
           if: success() || failure()
           run: vendor/bin/phpstan.phar analyse --error-format=github
-
 
   testsuite-windows:
     runs-on: windows-2019
@@ -120,7 +109,7 @@ jobs:
       PHP_VERSION: '8.0'
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2

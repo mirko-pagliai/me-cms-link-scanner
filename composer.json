@@ -13,11 +13,13 @@
     "require": {
         "php": ">=7.4",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
-        "mirko-pagliai/me-cms": "^2.30.7-RC4"
+        "mirko-pagliai/me-cms": "~2.30.8-RC5"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
-        "phpunit/phpunit": "^9.1|^9.5"
+        "phpunit/phpunit": "^9.1|^9.5",
+        "phpstan/phpstan": "^1.7",
+        "psalm/phar": "^4.24"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +28,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MeCmsLink\\Scanner\\Test\\": "tests",
+            "MeCms\\LinkScanner\\Test\\": "tests",
             "App\\": "tests/test_app/TestApp"
         }
     },
@@ -35,23 +37,25 @@
         "check": [
             "@cs-check",
             "@update-lowest",
-            "@test",
+            "phpunit",
             "@composer update",
-            "@test",
+            "phpunit",
             "@stan"
         ],
         "cs-check": "phpcs --standard=phpcs.xml.dist",
         "cs-fix": "phpcbf --standard=phpcs.xml.dist",
-        "test": "rm -f -r /tmp/cake* && phpunit",
         "coverage": "XDEBUG_MODE=coverage phpunit --coverage-html=coverage",
         "phpstan": "phpstan.phar analyse",
         "psalm": "psalm.phar --php-version=8.0",
         "stan": [
-            "@stan-setup",
             "@phpstan",
             "@psalm"
         ],
-        "stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^0.12 psalm/phar:\"^3.18|^4\" && mv composer.backup composer.json",
         "update-lowest": "@composer update --prefer-lowest"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
