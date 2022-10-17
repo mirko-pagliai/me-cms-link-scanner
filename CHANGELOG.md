@@ -1,6 +1,7 @@
 # 1.x branch
 ## 1.3 branch
 ### 1.3.2-RC3
+* improved `LinkScannerController::index()` method;
 * small and numerous improvements of descriptions, tags and code suggested
   by PhpStorm.
 
