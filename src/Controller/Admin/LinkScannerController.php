@@ -14,12 +14,12 @@ declare(strict_types=1);
  */
 namespace MeCms\LinkScanner\Controller\Admin;
 
-use Cake\Filesystem\Folder;
 use Cake\I18n\FrozenTime;
-use Cake\ORM\Entity;
 use LinkScanner\ScanEntity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\Admin\AppController;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Tools\Filesystem;
 
 /**
@@ -33,7 +33,7 @@ class LinkScannerController extends AppController
      * @param array|\ArrayAccess|null $user The user to check the authorization
      *  of. If empty the user in the session will be used
      * @return bool `true` if the user is authorized, otherwise `false`
-     * @uses MeCms\Controller\Component\AuthComponent::isGroup()
+     * @uses \MeCms\Controller\Component\AuthComponent::isGroup()
      */
     public function isAuthorized($user = null): bool
     {
@@ -48,13 +48,12 @@ class LinkScannerController extends AppController
     public function index(): void
     {
         $target = Filesystem::instance()->addSlashTerm((new LinkScanner())->getConfig('target'));
-
-        $logs = collection((new Folder($target))->find())
-            ->map(fn(string $filename): Entity => new Entity(compact('filename') + [
-                'filetime' => FrozenTime::createFromTimestamp(filemtime($target . $filename) ?: 0),
-                'filesize' => filesize($target . $filename),
-            ]))
-            ->sortBy('filetime');
+        $finder = (new Finder())->files()->in($target)->size('> 0')->sortByModifiedTime();
+        $logs = collection(iterator_to_array($finder))->map(fn(SplFileInfo $file): array => [
+            'filename' => $file->getFilename(),
+            'filetime' => FrozenTime::createFromTimestamp($file->getMTime()),
+            'filesize' => $file->getSize(),
+        ]);
 
         $this->set(compact('logs'));
     }
@@ -65,7 +64,7 @@ class LinkScannerController extends AppController
      * @return void
      * @uses \LinkScanner\Utility\LinkScanner
      */
-    public function view($filename): void
+    public function view(string $filename): void
     {
         $LinkScanner = new LinkScanner();
         $LinkScanner = $LinkScanner->import(Filesystem::instance()->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));

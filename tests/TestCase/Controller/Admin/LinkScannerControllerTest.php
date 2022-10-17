@@ -1,4 +1,5 @@
 <?php
+/** @noinspection HttpUrlsUsage, PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
@@ -17,7 +18,6 @@ namespace MeCms\LinkScanner\Test\TestCase\Controller\Admin;
 
 use Cake\Collection\Collection;
 use Cake\I18n\I18nDateTimeInterface;
-use Cake\ORM\Entity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\TestSuite\ControllerTestCase;
 use Tools\Filesystem;
@@ -53,6 +53,7 @@ class LinkScannerControllerTest extends ControllerTestCase
 
     /**
      * Tests for `index()` method
+     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::index()
      * @test
      */
     public function testIndex(): void
@@ -65,18 +66,18 @@ class LinkScannerControllerTest extends ControllerTestCase
         $this->assertResponseOkAndNotEmpty();
         $this->assertTemplate('Admin' . DS . 'LinkScanner' . DS . 'index.php');
         $logs = $this->viewVariable('logs');
-        $this->assertContainsOnlyInstancesOf(Entity::class, $logs);
         $this->assertCount(2, $logs);
 
         foreach ($logs as $log) {
-            $this->assertNotEmpty($log->get('filename'));
-            $this->assertInstanceOf(I18nDateTimeInterface::class, $log->get('filetime'));
-            $this->assertGreaterThan(0, $log->get('filesize'));
+            $this->assertNotEmpty($log['filename']);
+            $this->assertInstanceOf(I18nDateTimeInterface::class, $log['filetime']);
+            $this->assertGreaterThan(0, $log['filesize']);
         }
     }
 
     /**
      * Tests for `view()` method
+     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::view()
      * @test
      */
     public function testView(): void

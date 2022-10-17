@@ -17,8 +17,8 @@ class Application extends BaseApplication
         $this->addPlugin(MeCmsLinkScanner::class, ['bootstrap' => false, 'routes' => false]);
     }
 
-    public function middleware(MiddlewareQueue $middleware): MiddlewareQueue
+    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
     {
-        return $middleware->add(new RoutingMiddleware($this));
+        return $middlewareQueue->add(new RoutingMiddleware($this));
     }
 }

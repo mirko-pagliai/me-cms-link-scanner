@@ -16,16 +16,6 @@ parameters:
 			path: src/Controller/Admin/LinkScannerController.php
 
 		-
-			message: "#^Variable \\$logs might not be defined\\.$#"
-			count: 1
-			path: templates/Admin/LinkScanner/index.php
-
-		-
-			message: "#^Variable \\$this might not be defined\\.$#"
-			count: 4
-			path: templates/Admin/LinkScanner/index.php
-
-		-
 			message: "#^Variable \\$elapsedTime might not be defined\\.$#"
 			count: 1
 			path: templates/Admin/LinkScanner/view.php
