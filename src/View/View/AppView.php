@@ -27,7 +27,7 @@ class AppView extends MeCmsAppView
      * @param string $content Content to render in a template, wrapped by the surrounding layout
      * @param string|null $layout Layout name
      * @return string Rendered output
-     * @uses MeCms\View\View\AppView::renderLayout()
+     * @uses \MeCms\View\View\AppView::renderLayout()
      */
     public function renderLayout(string $content, ?string $layout = null): string
     {

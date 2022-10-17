@@ -33,7 +33,7 @@ class LinkScannerController extends AppController
      * @param array|\ArrayAccess|null $user The user to check the authorization
      *  of. If empty the user in the session will be used
      * @return bool `true` if the user is authorized, otherwise `false`
-     * @uses MeCms\Controller\Component\AuthComponent::isGroup()
+     * @uses \MeCms\Controller\Component\AuthComponent::isGroup()
      */
     public function isAuthorized($user = null): bool
     {
@@ -65,7 +65,7 @@ class LinkScannerController extends AppController
      * @return void
      * @uses \LinkScanner\Utility\LinkScanner
      */
-    public function view($filename): void
+    public function view(string $filename): void
     {
         $LinkScanner = new LinkScanner();
         $LinkScanner = $LinkScanner->import(Filesystem::instance()->concatenate($LinkScanner->getConfig('target'), urldecode($filename)));

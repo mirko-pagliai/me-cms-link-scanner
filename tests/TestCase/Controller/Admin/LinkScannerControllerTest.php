@@ -1,4 +1,5 @@
 <?php
+/** @noinspection HttpUrlsUsage, PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
