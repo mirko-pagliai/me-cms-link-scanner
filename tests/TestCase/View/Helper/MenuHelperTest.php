@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace MeCms\LinkScanner\Test\TestCase\View\Helper;
 
 use MeTools\TestSuite\HelperTestCase;
-use MeTools\View\Helper\BootstrapHtmlHelper as HtmlHelper;
+use MeTools\View\Helper\HtmlHelper;
 
 /**
  * MenuHelperTest class
@@ -42,7 +42,7 @@ class MenuHelperTest extends HelperTestCase
      */
     protected function buildLinks(array $links): string
     {
-        /** @var \MeTools\View\Helper\BootstrapHtmlHelper $HtmlHelper */
+        /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $HtmlHelper */
         $HtmlHelper = $this->getMockForHelper(HtmlHelper::class, []);
 
         return implode(PHP_EOL, array_map(fn(array $link): string => $HtmlHelper->link($link[0], $link[1]), $links));
