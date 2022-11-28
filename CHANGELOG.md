@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.3 branch
+### 1.3.3
+* updated for me-cms 2.30.10.
+
 ### 1.3.2-RC3
 * improved `LinkScannerController::index()` method;
 * small and numerous improvements of descriptions, tags and code suggested
