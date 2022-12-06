@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.3 branch
+### 1.3.4
+* fixed a small bug in sorting results by date in the admin panel.
+
 ### 1.3.3
 * updated for me-cms 2.30.10.
 
