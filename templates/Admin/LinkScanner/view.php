@@ -11,17 +11,20 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
+ *
+ * @var string $elapsedTime
+ * @var string $endTime
+ * @var string $filename
+ * @var string $fullBaseUrl
+ * @var \Cake\Collection\CollectionInterface $results
+ * @var \MeCms\View\View\Admin\AppView $this
  */
 
 $this->extend('MeCms./Admin/common/view');
 $this->assign('title', __d('me_cms/link_scanner', '{0} log {1}', 'LinkScanner', $filename));
 
-$isRedirectResults = $results->filter(function ($row) {
-    return $row->isRedirect();
-});
-$isNotOkResults = $results->filter(function ($row) {
-    return !$row->isOk() && !$row->isRedirect();
-});
+$isRedirectResults = $results->filter(fn($row) => $row->isRedirect());
+$isNotOkResults = $results->filter(fn($row) => !$row->isOk() && !$row->isRedirect());
 ?>
 
 <p class="mb-0">
@@ -44,9 +47,9 @@ $isNotOkResults = $results->filter(function ($row) {
 </p>
 
 <?php
-if ($this->request->getQuery('show') === 'invalid') {
+if ($this->getRequest()->getQuery('show') === 'invalid') {
     $results = $isNotOkResults;
-} elseif ($this->request->getQuery('show') === 'redirects') {
+} elseif ($this->getRequest()->getQuery('show') === 'redirects') {
     $results = $isRedirectResults;
 }
 ?>
@@ -57,20 +60,20 @@ if ($this->request->getQuery('show') === 'invalid') {
         <?php
         echo $this->Html->button(
             __d('me_cms/link_scanner', 'Show all'),
-            [$this->request->getParam('pass.0'), '?' => ['show' => 'all']],
+            [$this->getRequest()->getParam('pass.0'), '?' => ['show' => 'all']],
             ['class' => 'btn-primary']
         );
         if ($isRedirectResults->count()) {
             echo $this->Html->button(
                 __d('me_cms/link_scanner', 'Show redirects'),
-                [$this->request->getParam('pass.0'), '?' => ['show' => 'redirects']],
+                [$this->getRequest()->getParam('pass.0'), '?' => ['show' => 'redirects']],
                 ['class' => 'btn-primary']
             );
         }
         if ($isNotOkResults->count()) {
             echo $this->Html->button(
                 __d('me_cms/link_scanner', 'Show invalid'),
-                [$this->request->getParam('pass.0'), '?' => ['show' => 'invalid']],
+                [$this->getRequest()->getParam('pass.0'), '?' => ['show' => 'invalid']],
                 ['class' => 'btn-primary']
             );
         }

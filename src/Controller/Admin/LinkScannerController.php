@@ -48,11 +48,11 @@ class LinkScannerController extends AppController
     {
         $target = Filesystem::instance()->addSlashTerm((new LinkScanner())->getConfig('target'));
         $finder = (new Finder())->files()->in($target)->size('> 0')->sortByModifiedTime()->reverseSorting();
-        $logs = collection(iterator_to_array($finder))->map(fn(SplFileInfo $file): array => [
+        $logs = array_map(fn(SplFileInfo $file): array => [
             'filename' => $file->getFilename(),
             'filetime' => FrozenTime::createFromTimestamp($file->getMTime()),
             'filesize' => $file->getSize(),
-        ]);
+        ], iterator_to_array($finder));
 
         $this->set(compact('logs'));
     }

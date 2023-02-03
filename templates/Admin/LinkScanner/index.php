@@ -13,7 +13,7 @@ declare(strict_types=1);
  * @license     https://opensource.org/licenses/mit-license.php MIT License
  *
  * @var array<array{filename: string, filetime: \Cake\I18n\FrozenTime, filesize: int}> $logs
- * @var \MeCms\LinkScanner\View\View\AppView $this
+ * @var \MeCms\View\View\Admin\AppView $this
  */
 
 $this->extend('MeCms./Admin/common/index');
