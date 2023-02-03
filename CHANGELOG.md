@@ -1,4 +1,8 @@
 # 1.x branch
+## 1.4 branch
+### 1.4.0
+* removed useless `AppView` class.
+
 ## 1.3 branch
 ### 1.3.4
 * fixed a small bug in sorting results by date in the admin panel.
