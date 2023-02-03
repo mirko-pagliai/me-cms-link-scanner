@@ -20,10 +20,8 @@ use Cake\View\Helper;
 /**
  * Menu Helper.
  *
- * This helper contains methods that will be called automatically to generate
- *  menus for the admin layout.
- * You don't need to call these methods manually, use instead the
- *  `MenuBuilderHelper` helper.
+ * This helper contains methods that will be called automatically to generate menus for the admin layout.
+ * You don't need to call these methods manually, use instead the `MenuBuilderHelper` helper.
  *
  * Each method must return an array with four values:
  *  - the menu links, as an array of parameters;
@@ -31,9 +29,9 @@ use Cake\View\Helper;
  *  - the options for the menu title;
  *  - the controllers handled by this menu, as an array.
  *
- * See the `\MeCms\View\Helper\MenuBuilderHelper::generate()` method for more
- *  information.
- * @property \MeCms\View\Helper\AuthHelper $Auth
+ * @see \MeCms\View\Helper\MenuBuilderHelper::generate() for more information
+ * @see \MeCms\View\Helper\MenuHelper for examples
+ * @property \MeCms\View\Helper\IdentityHelper $Identity
  */
 class MenuHelper extends Helper
 {
@@ -41,7 +39,7 @@ class MenuHelper extends Helper
      * Helpers
      * @var array
      */
-    public $helpers = ['MeCms.Auth'];
+    public $helpers = ['MeCms.Identity'];
 
     /**
      * Internal function to generate the menu for "scanner" actions
@@ -49,8 +47,8 @@ class MenuHelper extends Helper
      */
     public function scanner(): array
     {
-        //Only admins access this controller
-        if (!$this->Auth->isGroup('admin')) {
+        //Only admins can access this controller
+        if (!$this->Identity->isGroup('admin')) {
             return [];
         }
 

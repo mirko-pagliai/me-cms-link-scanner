@@ -1,5 +1,6 @@
 <?php
-/** @noinspection HttpUrlsUsage, PhpUnhandledExceptionInspection */
+/** @noinspection PhpDocMissingThrowsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
 declare(strict_types=1);
 
 /**
@@ -19,7 +20,7 @@ namespace MeCms\LinkScanner\Test\TestCase\Controller\Admin;
 use Cake\Collection\Collection;
 use Cake\I18n\I18nDateTimeInterface;
 use LinkScanner\Utility\LinkScanner;
-use MeCms\TestSuite\ControllerTestCase;
+use MeCms\TestSuite\Admin\ControllerTestCase;
 use Tools\Filesystem;
 
 /**
@@ -39,22 +40,19 @@ class LinkScannerControllerTest extends ControllerTestCase
     }
 
     /**
-     * Tests for `isAuthorized()` method
      * @test
+     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::isAuthorized()
      */
     public function testIsAuthorized(): void
     {
-        $this->assertGroupsAreAuthorized([
-            'admin' => true,
-            'manager' => false,
-            'user' => false,
-        ]);
+        $this->assertOnlyAdminIsAuthorized('index');
+        $this->assertOnlyAdminIsAuthorized('add');
+        $this->assertOnlyAdminIsAuthorized('delete');
     }
 
     /**
-     * Tests for `index()` method
-     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::index()
      * @test
+     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::index()
      */
     public function testIndex(): void
     {
@@ -76,9 +74,8 @@ class LinkScannerControllerTest extends ControllerTestCase
     }
 
     /**
-     * Tests for `view()` method
-     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::view()
      * @test
+     * @uses \MeCms\LinkScanner\Controller\Admin\LinkScannerController::view()
      */
     public function testView(): void
     {

@@ -1,4 +1,5 @@
 <?php
+/** @noinspection Annotator */
 declare(strict_types=1);
 
 /**
@@ -18,27 +19,25 @@ use Cake\I18n\FrozenTime;
 use LinkScanner\ScanEntity;
 use LinkScanner\Utility\LinkScanner;
 use MeCms\Controller\Admin\AppController;
+use MeCms\Model\Entity\User;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Tools\Filesystem;
 
 /**
  * LinkScanner controller
- * @property \MeCms\Controller\Component\AuthComponent $Auth
  */
 class LinkScannerController extends AppController
 {
     /**
-     * Check if the provided user is authorized for the request
-     * @param array|\ArrayAccess|null $user The user to check the authorization
-     *  of. If empty the user in the session will be used
+     * Checks if the provided user is authorized for the request
+     * @param \MeCms\Model\Entity\User $User User entity
      * @return bool `true` if the user is authorized, otherwise `false`
-     * @uses \MeCms\Controller\Component\AuthComponent::isGroup()
      */
-    public function isAuthorized($user = null): bool
+    public function isAuthorized(User $User): bool
     {
         //Only admins can access this controller
-        return $this->Auth->isGroup('admin');
+        return $User->get('group')->get('name') === 'admin';
     }
 
     /**
@@ -49,11 +48,11 @@ class LinkScannerController extends AppController
     {
         $target = Filesystem::instance()->addSlashTerm((new LinkScanner())->getConfig('target'));
         $finder = (new Finder())->files()->in($target)->size('> 0')->sortByModifiedTime()->reverseSorting();
-        $logs = collection(iterator_to_array($finder))->map(fn(SplFileInfo $file): array => [
+        $logs = array_map(fn(SplFileInfo $file): array => [
             'filename' => $file->getFilename(),
             'filetime' => FrozenTime::createFromTimestamp($file->getMTime()),
             'filesize' => $file->getSize(),
-        ]);
+        ], iterator_to_array($finder));
 
         $this->set(compact('logs'));
     }
@@ -62,7 +61,6 @@ class LinkScannerController extends AppController
      * Views a `LinkScanner` log
      * @param string $filename Filename
      * @return void
-     * @uses \LinkScanner\Utility\LinkScanner
      */
     public function view(string $filename): void
     {

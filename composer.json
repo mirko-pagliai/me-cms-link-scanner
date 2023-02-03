@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.4",
         "mirko-pagliai/cakephp-link-scanner": "^1.1",
-        "mirko-pagliai/me-cms": "~2.30.10"
+        "mirko-pagliai/me-cms": "~2.31"
     },
     "require-dev": {
         "cakephp/cakephp-codesniffer": "^4.0",
