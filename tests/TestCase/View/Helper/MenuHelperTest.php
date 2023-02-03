@@ -15,51 +15,29 @@ declare(strict_types=1);
 
 namespace MeCms\LinkScanner\Test\TestCase\View\Helper;
 
-use MeTools\TestSuite\HelperTestCase;
+use MeCms\TestSuite\MenuHelperTestCase;
 use MeTools\View\Helper\HtmlHelper;
 
 /**
  * MenuHelperTest class
  * @property \MeCms\LinkScanner\View\Helper\MenuHelper $Helper
  */
-class MenuHelperTest extends HelperTestCase
+class MenuHelperTest extends MenuHelperTestCase
 {
     /**
-     * Internal method to write auth data on session
-     * @param array $data Data you want to write
-     * @return void
-     */
-    protected function writeAuthOnSession(array $data = []): void
-    {
-        $this->Helper->getView()->getRequest()->getSession()->write('Auth.User', $data);
-        $this->Helper->Auth->initialize([]);
-    }
-
-    /**
-     * Internal method to build links
-     * @param array $links Links
-     * @return string
-     */
-    protected function buildLinks(array $links): string
-    {
-        /** @var \MeTools\View\Helper\HtmlHelper&\PHPUnit\Framework\MockObject\MockObject $HtmlHelper */
-        $HtmlHelper = $this->getMockForHelper(HtmlHelper::class, []);
-
-        return implode(PHP_EOL, array_map(fn(array $link): string => $HtmlHelper->link($link[0], $link[1]), $links));
-    }
-
-    /**
-     * Tests for `scanner()` method
      * @test
+     * @uses \MeCms\LinkScanner\View\Helper\MenuHelper::scanner()
      */
     public function testScanner(): void
     {
-        $this->assertEmpty($this->Helper->scanner());
+        foreach (['user', 'manager'] as $name) {
+            $this->setIdentity(['group' => compact('name')]);
+            $this->assertEmpty($this->Helper->scanner());
+        }
 
-        $this->writeAuthOnSession(['group' => ['name' => 'admin']]);
+        $this->setIdentity(['group' => ['name' => 'admin']]);
         [$links,,, $handledControllers] = $this->Helper->scanner();
-        $links = $this->buildLinks($links);
-        $this->assertTextContains('Link scanner', $links);
+        $this->assertNotEmpty($links);
         $this->assertEquals(['LinkScanner'], $handledControllers);
     }
 }
