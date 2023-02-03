@@ -1,4 +1,5 @@
 <?php
+/** @noinspection Annotator */
 declare(strict_types=1);
 
 /**
@@ -25,7 +26,6 @@ use Tools\Filesystem;
 
 /**
  * LinkScanner controller
- * @property \MeCms\Controller\Component\AuthComponent $Auth
  */
 class LinkScannerController extends AppController
 {

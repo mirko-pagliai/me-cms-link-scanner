@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace MeCms\LinkScanner\Test\TestCase\View\Helper;
 
 use MeCms\TestSuite\MenuHelperTestCase;
-use MeTools\View\Helper\HtmlHelper;
 
 /**
  * MenuHelperTest class
