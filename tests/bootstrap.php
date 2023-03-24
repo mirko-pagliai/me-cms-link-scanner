@@ -36,16 +36,14 @@ define('CONFIG', APP . 'config' . DS);
 define('CACHE', TMP . 'cache' . DS);
 define('LOGS', TMP . 'logs' . DS);
 define('SESSIONS', TMP . 'sessions' . DS);
-@mkdir(TMP);
-@mkdir(TMP . 'cakephp-link-scanner');
-@mkdir(LOGS);
-@mkdir(SESSIONS);
-@mkdir(CACHE);
-@mkdir(CACHE . 'views');
-@mkdir(CACHE . 'models');
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
+require dirname(__DIR__) . '/vendor/mirko-pagliai/cakephp-link-scanner/config/bootstrap.php';
+
+foreach (array_filter([TMP, LINK_SCANNER_TMP, LOGS, SESSIONS, CACHE . 'views', CACHE . 'models'], fn(string $dir): bool => !file_exists($dir)) as $dir) {
+    mkdir($dir, 0777, true);
+}
 
 Configure::write('debug', true);
 Configure::write('App', [
