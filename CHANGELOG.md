@@ -1,5 +1,8 @@
 # 1.x branch
 ## 1.4 branch
+### 1.4.1
+* updated for mirko-pagliai/cakephp-link-scanner 1.1.16.
+
 ### 1.4.0
 * updated for me-cms 2.31.1;
 * removed useless `AppView` class.
