@@ -61,6 +61,7 @@ class LinkScannerController extends AppController
      * Views a `LinkScanner` log
      * @param string $filename Filename
      * @return void
+     * @throws \ErrorException
      */
     public function view(string $filename): void
     {
