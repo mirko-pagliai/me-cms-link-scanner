@@ -11,11 +11,10 @@ declare(strict_types=1);
  * @copyright   Copyright (c) Mirko Pagliai
  * @link        https://github.com/mirko-pagliai/me-cms-link-scanner
  * @license     https://opensource.org/licenses/mit-license.php MIT License
- * @see         \MeCms\View\Helper\MenuBuilderHelper
  */
 namespace MeCms\LinkScanner\View\Helper;
 
-use Cake\View\Helper;
+use MeCms\View\Helper\AbstractMenuHelper;
 
 /**
  * Menu Helper.
@@ -30,20 +29,13 @@ use Cake\View\Helper;
  *  - the controllers handled by this menu, as an array.
  *
  * @see \MeCms\View\Helper\MenuBuilderHelper::generate() for more information
- * @see \MeCms\View\Helper\MenuHelper for examples
- * @property \MeCms\View\Helper\IdentityHelper $Identity
  */
-class MenuHelper extends Helper
+class MenuHelper extends AbstractMenuHelper
 {
-    /**
-     * Helpers
-     * @var array
-     */
-    public $helpers = ['MeCms.Identity'];
-
     /**
      * Internal function to generate the menu for "scanner" actions
      * @return array Array with links, title, title options and handled controllers
+     * @throws \ErrorException
      */
     public function scanner(): array
     {
