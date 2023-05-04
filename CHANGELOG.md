@@ -1,4 +1,9 @@
 # 1.x branch
+## 1.5 branch
+### 1.5.0
+* the old `MenuHelper` class has been removed and replaced with `LinkScannerMenuHelper`. The helper is set in the
+  bootstrap, with the `'MeCms/LinkScanner.MenuHelpers` config key, as requested by me-cms 2.32.0.
+
 ## 1.4 branch
 ### 1.4.2
 * updated for me-cms 2.31.9.
