@@ -18,25 +18,24 @@ namespace MeCms\LinkScanner\Test\TestCase\View\Helper;
 use MeCms\TestSuite\MenuHelperTestCase;
 
 /**
- * MenuHelperTest class
- * @property \MeCms\LinkScanner\View\Helper\MenuHelper $Helper
+ * LinkScannerMenuHelperTest class
  */
-class MenuHelperTest extends MenuHelperTestCase
+class LinkScannerMenuHelperTest extends MenuHelperTestCase
 {
     /**
-     * @test
-     * @uses \MeCms\LinkScanner\View\Helper\MenuHelper::scanner()
+     * @ŧest
+     * @uses \MeCms\LinkScanner\View\Helper\LinkScannerMenuHelper::getLinks()
      */
-    public function testScanner(): void
+    public function testGetLinks(): void
     {
-        foreach (['user', 'manager'] as $name) {
-            $this->setIdentity(['group' => compact('name')]);
-            $this->assertEmpty($this->Helper->scanner());
-        }
+        $this->assertEmpty($this->getLinksAsHtml());
+
+        $this->setIdentity(['group' => ['name' => 'manager']]);
+        $this->assertEmpty($this->getLinksAsHtml());
 
         $this->setIdentity(['group' => ['name' => 'admin']]);
-        [$links,,, $handledControllers] = $this->Helper->scanner();
-        $this->assertNotEmpty($links);
-        $this->assertEquals(['LinkScanner'], $handledControllers);
+        $this->assertSame([
+            '<a href="/me-cms/link-scanner/admin/link-scanner" title="Link scanner">Link scanner</a>',
+        ], $this->getLinksAsHtml());
     }
 }
